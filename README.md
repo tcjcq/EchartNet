@@ -21,3 +21,6 @@ EchartNet 是一个echart网页分析工具，旨在根据网页自动生成与 
 2. 打开解决方案文件 FxEchartHtml.sln，使用 Visual Studio 加载项目。
 
 3. 编译项目以生成exe,运行程序会自动生成所有cs类和展示和修改所有示例。
+## 截图
+![主界面](https://github.com/tcjcq/EchartNet/images/main.png)
+
