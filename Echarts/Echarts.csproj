@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4624505F-5B33-46DD-8953-9BE4F01AC82F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Echarts</RootNamespace>
+    <AssemblyName>Echarts</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AngleAxis.cs" />
+    <Compile Include="Aria.cs" />
+    <Compile Include="AxisPointer.cs" />
+    <Compile Include="Brush.cs" />
+    <Compile Include="Calendar.cs" />
+    <Compile Include="Dataset.cs" />
+    <Compile Include="DataZoomInside.cs" />
+    <Compile Include="DataZoomSlider.cs" />
+    <Compile Include="Geo.cs" />
+    <Compile Include="Geo3D.cs" />
+    <Compile Include="Globe.cs" />
+    <Compile Include="Graphic.cs" />
+    <Compile Include="Grid.cs" />
+    <Compile Include="Grid3D.cs" />
+    <Compile Include="Legend.cs" />
+    <Compile Include="Mapbox3D.cs" />
+    <Compile Include="Media.cs" />
+    <Compile Include="Parallel.cs" />
+    <Compile Include="ParallelAxis.cs" />
+    <Compile Include="Polar.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Propertys\ArrayOrSingle.cs" />
+    <Compile Include="Propertys\ArrayOrSingleConverter.cs" />
+    <Compile Include="Propertys\BorderRadiusProperty.cs" />
+    <Compile Include="Propertys\BorderTypeProperty.cs" />
+    <Compile Include="Propertys\BoundaryGap.cs" />
+    <Compile Include="Propertys\CategoryDataItem.cs" />
+    <Compile Include="Propertys\Color.cs" />
+    <Compile Include="Propertys\DashArray.cs" />
+    <Compile Include="Propertys\DimensionValue.cs" />
+    <Compile Include="Propertys\EChartOption.cs" />
+    <Compile Include="Propertys\EdgeProperty.cs" />
+    <Compile Include="Propertys\FontWeightProperty.cs" />
+    <Compile Include="Propertys\Formatter.cs" />
+    <Compile Include="Propertys\LineStyleTypeProperty.cs" />
+    <Compile Include="Propertys\NumberOrBool.cs" />
+    <Compile Include="Propertys\NumberOrBoolConverter.cs" />
+    <Compile Include="Propertys\PaddingProperty.cs" />
+    <Compile Include="Propertys\PercentVector.cs" />
+    <Compile Include="Propertys\PercentVectorConverter.cs" />
+    <Compile Include="Propertys\SingleOrArrayConverter.cs" />
+    <Compile Include="Propertys\StringOrBool.cs" />
+    <Compile Include="Propertys\StringOrBoolConverter.cs" />
+    <Compile Include="Propertys\StringOrNumber.cs" />
+    <Compile Include="Propertys\StringOrNumberConverter.cs" />
+    <Compile Include="Propertys\StringOrNumbers.cs" />
+    <Compile Include="Propertys\StringOrNumbersConverter.cs" />
+    <Compile Include="Propertys\SymbolProperty.cs" />
+    <Compile Include="Propertys\SymbolPropertyConverter.cs" />
+    <Compile Include="Radar.cs" />
+    <Compile Include="RadiusAxis.cs" />
+    <Compile Include="SeriesBar.cs" />
+    <Compile Include="SeriesBar3D.cs" />
+    <Compile Include="SeriesBoxplot.cs" />
+    <Compile Include="SeriesCandlestick.cs" />
+    <Compile Include="SeriesCustom.cs" />
+    <Compile Include="SeriesEffectScatter.cs" />
+    <Compile Include="SeriesFlowGL.cs" />
+    <Compile Include="SeriesFunnel.cs" />
+    <Compile Include="SeriesGauge.cs" />
+    <Compile Include="SeriesGraph.cs" />
+    <Compile Include="SeriesGraphGL.cs" />
+    <Compile Include="SeriesHeatmap.cs" />
+    <Compile Include="SeriesLine.cs" />
+    <Compile Include="SeriesLine3D.cs" />
+    <Compile Include="SeriesLines.cs" />
+    <Compile Include="SeriesLines3D.cs" />
+    <Compile Include="SeriesMap.cs" />
+    <Compile Include="SeriesMap3D.cs" />
+    <Compile Include="SeriesParallel.cs" />
+    <Compile Include="SeriesPictorialBar.cs" />
+    <Compile Include="SeriesPie.cs" />
+    <Compile Include="SeriesPolygons3D.cs" />
+    <Compile Include="SeriesRadar.cs" />
+    <Compile Include="SeriesSankey.cs" />
+    <Compile Include="SeriesScatter.cs" />
+    <Compile Include="SeriesScatter3D.cs" />
+    <Compile Include="SeriesScatterGL.cs" />
+    <Compile Include="SeriesSunburst.cs" />
+    <Compile Include="SeriesSurface.cs" />
+    <Compile Include="SeriesThemeRiver.cs" />
+    <Compile Include="SeriesTree.cs" />
+    <Compile Include="SeriesTreemap.cs" />
+    <Compile Include="SingleAxis.cs" />
+    <Compile Include="StateAnimation.cs" />
+    <Compile Include="TextStyle.cs" />
+    <Compile Include="Timeline.cs" />
+    <Compile Include="Title.cs" />
+    <Compile Include="Toolbox.cs" />
+    <Compile Include="Tooltip.cs" />
+    <Compile Include="VisualMapContinuous.cs" />
+    <Compile Include="VisualMapPiecewise.cs" />
+    <Compile Include="XAxis.cs" />
+    <Compile Include="XAxis3D.cs" />
+    <Compile Include="YAxis.cs" />
+    <Compile Include="YAxis3D.cs" />
+    <Compile Include="ZAxis3D.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
