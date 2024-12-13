@@ -1364,30 +1364,6 @@ namespace FxEchartHtml
 			File.WriteAllText(outputFilePath1, JsonConvert.SerializeObject(classInfo));
 			AllClassInfos.Add(classInfo);
 		}
-
-		private static void FxAll()
-		{
-			var foundPairs = new HashSet<(string, string)>();
-
-			foreach (var rootClass in _classInfos.Values)
-			{
-				var visitedClasses = new HashSet<string>();
-				if (!visitedClasses.Add(rootClass.ClassName)) continue;
-
-				foreach (var otherClass in _classInfos.Values)
-				{
-					if (otherClass.ClassName == rootClass.ClassName || visitedClasses.Contains(otherClass.ClassName)) continue;
-
-					if (HaveSamePropertiesType(rootClass, otherClass, visitedClasses, _classInfos))
-					{
-						foundPairs.Add((rootClass.ClassName, otherClass.ClassName));
-					}
-				}
-			}
-
-			MergeSimilarClassesCore(foundPairs, _classInfos);
-		}
-
 		/// <summary>
 		/// 查找具有相同属性类型的类，并将其合并。
 		/// 在所有类中查找匹配项，若类对存在相同的属性结构，则将这些类合并。
