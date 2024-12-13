@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
 using System;
 
 namespace Echarts
@@ -12,20 +11,21 @@ namespace Echarts
 			return t == typeof(NumberOrBool);
 		}
 
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+			JsonSerializer serializer)
 		{
 			if (reader.TokenType == JsonToken.Null) return null;
 
 			var token = JToken.Load(reader);
 			switch (token.Type)
 			{
-				case JTokenType.Integer:
-				case JTokenType.Float:
-					return new NumberOrBool(token.ToObject<double>(serializer));
-				case JTokenType.Boolean:
-					return new NumberOrBool(token.ToObject<bool>(serializer));
-				default:
-					throw new JsonSerializationException($"无法反序列化 {token.Type} 类型到 NumberOrBool。");
+			case JTokenType.Integer:
+			case JTokenType.Float:
+				return new NumberOrBool(token.ToObject<double>(serializer));
+			case JTokenType.Boolean:
+				return new NumberOrBool(token.ToObject<bool>(serializer));
+			default:
+				throw new JsonSerializationException($"无法反序列化 {token.Type} 类型到 NumberOrBool。");
 			}
 		}
 

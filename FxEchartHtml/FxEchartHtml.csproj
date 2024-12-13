@@ -107,10 +107,11 @@
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
     <Compile Include="HtmlParser.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="EChartConfigItem.cs" />
     <Compile Include="ParseEchartJs.cs" />
     <Compile Include="PropertyInfo.cs" />
     <Compile Include="SimpleHttpServer.cs" />
+    <Compile Include="TreeViewBuilder.cs" />
     <Compile Include="WebContentFetcher.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="Form1.cs">

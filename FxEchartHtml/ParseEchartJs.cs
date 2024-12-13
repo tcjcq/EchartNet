@@ -1,6 +1,4 @@
-﻿using HtmlAgilityPack;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
@@ -15,7 +13,7 @@ namespace FxEchartHtml
 {
 	public static class ParseEchartJs
 	{
-		private static Dictionary<string, Item> _fileStru;
+		private static Dictionary<string, EChartConfigItem> _fileStru;
 		private static Dictionary<string, ClassInfo> _classInfos;
 		private static readonly Dictionary<string, ClassInfo> ClassInfosJj = new Dictionary<string, ClassInfo>();
 		private static readonly Dictionary<string, ClassInfo> ClassInfosJj2 = new Dictionary<string, ClassInfo>();
@@ -100,16 +98,16 @@ namespace FxEchartHtml
 				}
 
 				ParseAll();
-				FxAll();
+				MergeSimilarClasses(_classInfos);
 				ParseAll_Jj(_classInfos, ClassInfosJj);
-				FxAll_jj(ClassInfosJj);
+				MergeSimilarClasses(ClassInfosJj);
 				ParseAll_Jj(ClassInfosJj, ClassInfosJj2);
-				FxAll_jj(ClassInfosJj2);
+				MergeSimilarClasses(ClassInfosJj2);
 				ParseAll_Jj(ClassInfosJj2, ClassInfosJj3);
-				FxAll_jj(ClassInfosJj3);
+				MergeSimilarClasses(ClassInfosJj3);
 				ClassInfosJj.Clear();
 				ParseAll_Jj(ClassInfosJj3, ClassInfosJj);
-				FxAll_jj(ClassInfosJj);
+				MergeSimilarClasses(ClassInfosJj);
 
 			}
 			catch (Exception ex)
@@ -319,27 +317,6 @@ namespace FxEchartHtml
 			return match.Success ? match.Groups[1].Value : null;
 		}
 
-		private static void ParseTreeNode(HtmlNode node, int level)
-		{
-			var ls = node.SelectNodes(".//div[@class='doc-nav-item']");
-			foreach (var treeNodeContent in ls)
-			{
-				var textSpan = treeNodeContent.SelectSingleNode(".//span[@class='doc-nav-item']/span");
-				if (textSpan != null)
-				{
-					Debug.WriteLine(new string(' ', level * 2) + textSpan.InnerText.Trim());
-				}
-
-				var childrenNode =
-					treeNodeContent.ParentNode.SelectSingleNode(
-						"./following-sibling::div[@class='el-tree-node__children']");
-				if (childrenNode != null)
-				{
-					ParseTreeNode(childrenNode, level + 1);
-				}
-			}
-		}
-
 		public static string ToPascalCase(string input)
 		{
 			if (input == null)
@@ -485,7 +462,7 @@ namespace FxEchartHtml
 			}
 		}
 
-		private static Item GetItem(string name)
+		private static EChartConfigItem GetItem(string name)
 		{
 			name = name.Replace("<style_name>", "<style.name>");
 			name = name.Replace(".xxx.", ".xxx:xxx.");
@@ -506,7 +483,7 @@ namespace FxEchartHtml
 				}
 			}
 
-			return new Item();
+			return new EChartConfigItem();
 		}
 
 		private static string GenerateChildClass(string className, List<string> propertyNames, OptionItem optionItem)
@@ -929,7 +906,7 @@ namespace FxEchartHtml
 
 
 		// 辅助函数：推断类型，支持根据 uiControl 定义属性类型
-		private static List<string> PrepareAllPropertyNames(Dictionary<string, Item> rootObject)
+		private static List<string> PrepareAllPropertyNames(Dictionary<string, EChartConfigItem> rootObject)
 		{
 			_allPropertyNames = new List<string>();
 			foreach (var prop in rootObject.Keys)
@@ -1025,7 +1002,7 @@ namespace FxEchartHtml
 			// 将 JSON 映射到自定义类 (FileStru)
 			try
 			{
-				_fileStru = JsonConvert.DeserializeObject<Dictionary<string, Item>>(json);
+				_fileStru = JsonConvert.DeserializeObject<Dictionary<string, EChartConfigItem>>(json);
 			}
 			catch (JsonSerializationException ex)
 			{
@@ -1065,107 +1042,12 @@ namespace FxEchartHtml
 			Debug.WriteLine($"C# 类文件已生成: {outputFilePath}");
 		}
 
-		public static ClassInfo FxClassInfo()
-		{
-			var p = "textStyle";
-			var ls = new List<string>();
-			foreach (var r in _classInfos)
-			{
-				foreach (var r1 in r.Value.Properties)
-				{
-					if (r1.PropertyName == p)
-					{
-						Debug.WriteLine($"{r.Key}.{r1.PropertyName}");
-						ls.Add($"{r.Key}_{ToPascalCase(r1.PropertyName)}");
-					}
-				}
-			}
-
-			var sameList = new List<List<string>>();
-			var flagList = new List<bool>();
-			for (int i = 0; i < ls.Count; i++)
-			{
-				flagList.Add(false);
-			}
-
-			for (var i = 0; i < ls.Count - 1; i++)
-			{
-				if (flagList[i])
-				{
-					continue;
-				}
-
-				var ls1 = new List<string>();
-				var r = _classInfos[ls[i]];
-				for (int j = i + 1; j < ls.Count; j++)
-				{
-					if (flagList[j])
-					{
-						continue;
-					}
-
-					var r1 = _classInfos[ls[j]];
-					var flag = true;
-					if (r1.Properties.Count != r.Properties.Count)
-					{
-						continue;
-					}
-
-					foreach (var r2 in r.Properties)
-					{
-						var flag1 = false;
-						foreach (var r3 in r1.Properties)
-						{
-							if (r2.PropertyName == r3.PropertyName)
-							{
-								flag1 = true;
-								break;
-							}
-						}
-
-						if (!flag1)
-						{
-							flag = false;
-						}
-
-					}
-
-					if (flag)
-					{
-						if (!flagList[i])
-						{
-							ls1.Add(r.ClassName);
-
-						}
-
-						if (!flagList[j])
-						{
-							ls1.Add(r1.ClassName);
-
-						}
-
-						flagList[i] = true;
-						flagList[j] = true;
-					}
-				}
-
-				if (ls1.Count > 0)
-				{
-					sameList.Add(ls1);
-					Debug.WriteLine($"{p}=> same:{ls1.Count} propNum={r.Properties.Count}");
-				}
-				else
-				{
-					ls1.Add(r.ClassName);
-					sameList.Add(ls1);
-					Debug.WriteLine($"{p}=> same:{ls1.Count} propNum={r.Properties.Count}");
-
-				}
-			}
-
-			return null;
-		}
-
+		/// <summary>
+		/// 对指定属性名称进行优化处理，将具有相同属性结构的类进行分组与更新。
+		/// 此方法会对 _classInfos 中的类进行分析，将包含给定属性（propertyNameToFind）的类根据属性结构进行分组，
+		/// 然后更新这些类的属性类型以及子类信息。
+		/// </summary>
+		/// <param name="propertyNameToFind">要查找并优化处理的属性名称。</param>
 		public static void OptimizedClassInfo(string propertyNameToFind)
 		{
 			try
@@ -1285,15 +1167,11 @@ namespace FxEchartHtml
 
 					classInfos.Add(r.Value);
 				}
-
-
-
 			}
 			catch (Exception e)
 			{
 				Debug.WriteLine(e.Message);
 			}
-
 		}
 
 		private static bool PropertiesMatch(List<PropertyInfo> properties1, List<PropertyInfo> properties2)
@@ -1311,29 +1189,44 @@ namespace FxEchartHtml
 			return set1.SetEquals(set2);
 		}
 
+		/// <summary>
+		/// 根据相同属性类的信息，对给定类集合中的属性类型和子类信息进行更新。
+		/// 此方法通过对比 <paramref name="samePropertyClasses"/> 中的分组信息，将匹配的属性类型更新为新的类型名，
+		/// 并递归更新相关类的信息。
+		/// </summary>
+		/// <param name="samePropertyClasses">
+		/// 字典结构，键为合并后的类型名，值为该类型名所对应的一组类名字符串列表。
+		/// 例如：{"NewTypeName": ["SomeClassName", "AnotherClassName"]}。
+		/// </param>
+		/// <param name="classInfos">
+		/// 当前项目中所有类信息的字典结构，键为类名，值为对应的 <see cref="ClassInfo"/> 对象。
+		/// </param>
+		/// <param name="propertyNameToFind">要匹配和更新的属性名称。</param>
 		private static void UpdateClassInfoWithMergedTypes(
 			Dictionary<string, List<string>> samePropertyClasses,
 			Dictionary<string, ClassInfo> classInfos,
 			string propertyNameToFind)
 		{
-			// 遍历每个类，更新属性类型和子类信息
+			// 遍历所有类信息对象
 			foreach (var classInfo in classInfos.Values)
 			{
-				// 更新属性类型
+				// 更新类的属性类型
 				foreach (var property in classInfo.Properties)
 				{
+					// 仅处理匹配指定属性名的属性
 					if (property.PropertyName != propertyNameToFind) continue;
 
+					// 遍历合并后的类型分组，将符合条件的属性类型更新为新的类型名
 					foreach (var group in samePropertyClasses)
 					{
-						// 构造匹配键
+						// 根据当前类名和属性名构造键，用于检查此属性是否属于该分组
 						var key = $"{classInfo.ClassName}_{ToPascalCase(property.PropertyName)}";
+
+						// 如果该分组包含此键，则更新该属性的类型
 						if (group.Value.Contains(key))
 						{
-							// 更新属性类型为新的分组键
 							property.PropertyType = group.Key;
-							//Debug.WriteLine($"Updated {classInfo.ClassName}.{property.PropertyName} -> {group.Key}");
-							break;
+							break; // 找到匹配分组即退出内层循环
 						}
 					}
 				}
@@ -1341,13 +1234,14 @@ namespace FxEchartHtml
 				// 更新子类信息
 				foreach (var group in samePropertyClasses)
 				{
+					// 如果当前类的类名包含在某个分组中，则使用该分组键更新子类信息
 					foreach (var className in group.Value)
 					{
 						if (classInfo.ClassName == className)
 						{
+							// 将当前类及其子类中对应旧名称的内容替换为分组键
 							ClassInfo.UpdateChildClasses(classInfo, classInfo.ClassName, group.Key);
-							//Debug.WriteLine($"Updated child class {classInfo.ClassName} -> {group.Key}");
-							break;
+							break; // 已更新完成，退出循环
 						}
 					}
 				}
@@ -1374,18 +1268,16 @@ namespace FxEchartHtml
 				Debug.WriteLine(@"无法解析类名，请检查文件内容格式。");
 				return;
 			}
-
 			var jsonStartIndex = fileContent.IndexOf("{", StringComparison.Ordinal);
 			if (jsonStartIndex == -1)
 			{
 				Debug.WriteLine(@"无法找到 JSON 数据，请检查文件内容格式。");
 				return;
 			}
-
 			var json = fileContent.Substring(jsonStartIndex);
 			try
 			{
-				_fileStru = JsonConvert.DeserializeObject<Dictionary<string, Item>>(json);
+				_fileStru = JsonConvert.DeserializeObject<Dictionary<string, EChartConfigItem>>(json);
 				_allPropertyNames = PrepareAllPropertyNames(_fileStru);
 			}
 			catch (JsonSerializationException ex)
@@ -1398,27 +1290,9 @@ namespace FxEchartHtml
 
 			var example = item[className.Replace("_", "-")].ExampleBaseOptions;
 
-			//_classContent = new StringBuilder();
-			//// 构造类文件内容
-			//_classContent.Append(
-			//	"using System;\nusing System.Collections.Generic;\nusing Newtonsoft.Json;\n\nnamespace Echarts\n{\n");
-			//// 添加注释
-			//_classContent.Append("        /// <summary>\n");
-			//_classContent.Append($"        /// {StripHtmlTags(Uri.UnescapeDataString(desc))}\n");
-			//_classContent.Append("        /// </summary>\n");
-
 			var classInfo = GenerateClassInfo(optionItem, className, _fileStru);
 			classInfo.Example = example;
 
-			//GenerateClassContent(classInfo);
-			//_classContent.Append("}");
-
-			//var outputFilePath = $".\\cs\\{ToPascalCase(classInfo.ClassName)}.cs";
-			//var outputFilePath1 = $".\\json\\{ToPascalCase(classInfo.ClassName)}.json";
-			//File.WriteAllText(outputFilePath, _classContent.ToString());
-			//File.WriteAllText(outputFilePath1, JsonConvert.SerializeObject(classInfo));
-
-			//Debug.WriteLine($"C# 类文件已生成: {outputFilePath}");
 		}
 		private static readonly List<ClassInfo> AllClassInfos = new List<ClassInfo>();
 		public static void ParseFile_Jj(string jsonFilePath, OptionItem optionItem, Dictionary<string, ClassInfo> classInfos, Dictionary<string, ClassInfo> newClassInfos)
@@ -1452,7 +1326,7 @@ namespace FxEchartHtml
 			var json = fileContent.Substring(jsonStartIndex);
 			try
 			{
-				_fileStru = JsonConvert.DeserializeObject<Dictionary<string, Item>>(json);
+				_fileStru = JsonConvert.DeserializeObject<Dictionary<string, EChartConfigItem>>(json);
 				_allPropertyNames = PrepareAllPropertyNames(_fileStru);
 			}
 			catch (JsonSerializationException ex)
@@ -1511,23 +1385,35 @@ namespace FxEchartHtml
 				}
 			}
 
-			MergeSimilarClasses(foundPairs, _classInfos);
+			MergeSimilarClassesCore(foundPairs, _classInfos);
 		}
 
-
-		private static void FxAll_jj(Dictionary<string, ClassInfo> classInfos)
+		/// <summary>
+		/// 查找具有相同属性类型的类，并将其合并。
+		/// 在所有类中查找匹配项，若类对存在相同的属性结构，则将这些类合并。
+		/// </summary>
+		/// <param name="classInfos">所有类信息的字典，键为类名，值为对应的 ClassInfo。</param>
+		private static void MergeSimilarClasses(Dictionary<string, ClassInfo> classInfos)
 		{
+			// foundPairs 用于存储找到的类对（如 (ClassA, ClassB)）
 			var foundPairs = new HashSet<(string, string)>();
 
+			// 遍历每个类，尝试与其他类比较是否有相同属性类型结构
 			foreach (var rootClass in classInfos.Values)
 			{
+				// visitedClasses 用于标记当前 rootClass 流程中已经访问过的类，避免重复处理
 				var visitedClasses = new HashSet<string>();
+
+				// 尝试将当前类加入 visitedClasses，如果失败表示重复则跳过
 				if (!visitedClasses.Add(rootClass.ClassName)) continue;
 
+				// 与其他类比较
 				foreach (var otherClass in classInfos.Values)
 				{
+					// 同名或已访问过则跳过
 					if (otherClass.ClassName == rootClass.ClassName || visitedClasses.Contains(otherClass.ClassName)) continue;
 
+					// 判断两个类是否有相同的属性类型结构
 					if (HaveSamePropertiesType(rootClass, otherClass, visitedClasses, classInfos))
 					{
 						foundPairs.Add((rootClass.ClassName, otherClass.ClassName));
@@ -1535,9 +1421,15 @@ namespace FxEchartHtml
 				}
 			}
 
-			MergeSimilarClasses(foundPairs, classInfos);
+			// 对找到的类对进行合并
+			MergeSimilarClassesCore(foundPairs, classInfos);
 		}
-		private static void MergeSimilarClasses(HashSet<(string, string)> foundPairs, Dictionary<string, ClassInfo> classInfos)
+		/// <summary>
+		/// 将找到的相似类（foundPairs）进行合并处理，根据代表类映射进行最终的类映射并更新类信息。
+		/// </summary>
+		/// <param name="foundPairs">包含已识别出的相似类对的集合。</param>
+		/// <param name="classInfos">所有类信息字典。</param>
+		private static void MergeSimilarClassesCore(HashSet<(string, string)> foundPairs, Dictionary<string, ClassInfo> classInfos)
 		{
 			var representativeMap = new Dictionary<string, string>(); // 每个类和其代表类的映射关系
 
@@ -1598,7 +1490,12 @@ namespace FxEchartHtml
 			}
 		}
 
-		// 辅助方法：查找代表类
+		/// <summary>
+		/// 查找给定类的最终代表类并进行路径压缩。
+		/// </summary>
+		/// <param name="representativeMap">映射关系字典，键为类名，值为其代表类。</param>
+		/// <param name="cls">要查找的类名。</param>
+		/// <returns>最终的代表类名。</returns>		
 		private static string FindRepresentative(Dictionary<string, string> representativeMap, string cls)
 		{
 			if (representativeMap[cls] != cls)
@@ -1609,21 +1506,23 @@ namespace FxEchartHtml
 			return representativeMap[cls];
 		}
 
-
+		/// <summary>
+		/// 判断两个类是否具有相同的属性类型结构。
+		/// 若属性数量或类型结构不相同则返回false。
+		/// 同时在比较中可能会递归查找子类信息。
+		/// </summary>
+		/// <param name="classInfo1">第一个类信息。</param>
+		/// <param name="classInfo2">第二个类信息。</param>
+		/// <param name="visited">已访问过的类名集合，防止递归循环。</param>
+		/// <param name="classInfos">类信息字典，用于递归查找类。</param>
+		/// <returns>如果两个类具有相同的属性结构，则返回true，否则返回false。</returns>
 		private static bool HaveSamePropertiesType(ClassInfo classInfo1, ClassInfo classInfo2, HashSet<string> visited, Dictionary<string, ClassInfo> classInfos = null)
 		{
-			if (classInfo1 == null)
-			{
-				return false;
-			}
-			if (classInfo2 == null)
-			{
-				return false;
-			}
-
-
+			if (classInfo1 == null) return false;
+			if (classInfo2 == null) return false;
 			if (classInfo1.Properties.Count != classInfo2.Properties.Count) return false;
 
+			// 比较每个属性
 			for (int i = 0; i < classInfo1.Properties.Count; i++)
 			{
 				try
@@ -1633,12 +1532,16 @@ namespace FxEchartHtml
 
 					if (prop2 == null) return false;
 
-					if (prop1.PropertyType != prop2.PropertyType)
-					{
-						// If types are different, check if the types themselves are the same by structure
-						if (!HaveSamePropertiesType(FindClassInfo(prop2.PropertyType, visited, classInfos), FindClassInfo(prop1.PropertyType, visited, classInfos), visited, classInfos))
-							return false;
-					}
+					if (prop1.PropertyType == prop2.PropertyType) continue;
+
+					// 若类型不同，则需要进一步检查类型对应的类结构是否相同
+					var ci2 = FindClassInfo(prop2.PropertyType, visited, classInfos);
+					var ci1 = FindClassInfo(prop1.PropertyType, visited, classInfos);
+
+					// 递归比较属性对应的类结构
+					if (!HaveSamePropertiesType(ci1, ci2, visited, classInfos))
+						return false;
+
 				}
 				catch (Exception e)
 				{
@@ -1649,6 +1552,14 @@ namespace FxEchartHtml
 			return true;
 		}
 
+		/// <summary>
+		/// 根据类名在 classInfos 中查找对应的 ClassInfo 对象。
+		/// 若未找到则递归在子类中查找。
+		/// </summary>
+		/// <param name="className">要查找的类名。</param>
+		/// <param name="visited">已访问过的类名集合，用于防止递归死循环。</param>
+		/// <param name="classInfos">类信息字典。</param>
+		/// <returns>找到的 ClassInfo 对象，若找不到则返回 null。</returns>
 		private static ClassInfo FindClassInfo(string className, HashSet<string> visited = null, Dictionary<string, ClassInfo> classInfos = null)
 		{
 			// 如果访问过的类集合为空，则创建一个新的HashSet
@@ -1689,8 +1600,16 @@ namespace FxEchartHtml
 			// 如果没有找到，则返回null
 			return null;
 		}
+
+		/// <summary>
+		/// 根据给定的 OptionItem 创建相应的 ClassInfo 对象，并递归生成其子类信息。
+		/// </summary>
+		/// <param name="optionItem">需要处理的 OptionItem。</param>
+		/// <param name="className">类名。</param>
+		/// <param name="fileStru">类名与 EChartConfigItem 对象的映射，用于获取描述信息。</param>
+		/// <returns>生成的 ClassInfo 对象。</returns>
 		private static ClassInfo GenerateClassInfo(OptionItem optionItem, string className,
-			Dictionary<string, Item> fileStru)
+			Dictionary<string, EChartConfigItem> fileStru)
 		{
 			var classInfo = new ClassInfo
 			{
@@ -1765,6 +1684,13 @@ namespace FxEchartHtml
 			return classInfo;
 		}
 
+		/// <summary>
+		/// 在 classInfos 中检查给定类名是否存在，并返回对应的 ClassInfo。
+		/// </summary>
+		/// <param name="className">要检查的类名。</param>
+		/// <param name="classInfos">类信息字典。</param>
+		/// <param name="classInfo">输出参数，当找到匹配类时返回对应的 ClassInfo。</param>
+		/// <returns>如果找到匹配的类信息且名称匹配则返回 true，否则返回 false。</returns>
 		private static bool CheckClass(string className, Dictionary<string, ClassInfo> classInfos, out ClassInfo classInfo)
 		{
 			// 检查 _classInfos 字典的键中是否包含给定的类名 className
@@ -1803,7 +1729,7 @@ namespace FxEchartHtml
 		}
 
 
-		private static ClassInfo GenerateClassInfo2(OptionItem optionItem, string className, Dictionary<string, Item> fileStru, Dictionary<string, ClassInfo> oldClassInfos, ref Dictionary<string, ClassInfo> newClassInfos)
+		private static ClassInfo GenerateClassInfo2(OptionItem optionItem, string className, Dictionary<string, EChartConfigItem> fileStru, Dictionary<string, ClassInfo> oldClassInfos, ref Dictionary<string, ClassInfo> newClassInfos)
 		{
 			if (newClassInfos == null)
 			{
