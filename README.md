@@ -23,5 +23,5 @@ EchartNet 是一个echart网页分析工具，旨在根据网页自动生成与 
 3. 编译项目以生成exe,运行程序会自动生成所有cs类和展示和修改所有示例。
 ## 截图
 ![主界面](https://github.com/tcjcq/EchartNet/blob/master/images/main.png)
-![示例](https://github.com/tcjcq/EchartNet/blob/master/images/屏幕截图 2024-12-14 215755.png)
-
+![示例1](https://github.com/tcjcq/EchartNet/blob/master/images/pic1.png)
+![示例2](https://github.com/tcjcq/EchartNet/blob/master/images/pic2.png)
