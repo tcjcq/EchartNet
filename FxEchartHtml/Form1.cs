@@ -2,9 +2,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Windows.Forms;
 
 namespace FxEchartHtml
@@ -22,12 +22,12 @@ namespace FxEchartHtml
 
 		private void Form1_LoadAsync(object sender, EventArgs e)
 		{
-			//await HtmlParser.GetDemoJs();
 			InitializeClassInfoManager(JsonDirectory);
 			InitView();
-
 			var prefixes = new[] { "http://localhost:8088/" };
-			var server = new SimpleHttpServer(prefixes) { RootPath = "https://echarts.apache.org/examples" };
+			var server = new SimpleHttpServer(prefixes);
+			server.RequestReceived += SimpleHttpServer.CustomRequestHandler;
+			SimpleHttpServer.RootPath = "https://echarts.apache.org/examples";
 			server.Start();
 		}
 
@@ -37,11 +37,8 @@ namespace FxEchartHtml
 		private void InitView()
 		{
 			var option = ParseEchartJs.GetOptinPropTypes();
-			if (option != null)
-			{
-				BuildRootTreeViewNodes(treeView1, option);
-
-			}
+			if (option == null) return;
+			BuildRootTreeViewNodes(treeView1, option);
 		}
 
 		/// <summary>
@@ -83,45 +80,42 @@ namespace FxEchartHtml
 		private static TreeNode CreateTreeNode(OptionItem option, TreeNode pre)
 		{
 			var nodeText = ParseEchartJs.ToPascalCase(option.Prop ?? option.ArrayItemType);
-			if (pre != null && pre.Text.Contains("Series[]"))
-			{
-				Debug.WriteLine("");
-			}
 			var node = new TreeNode(nodeText)
 			{
 				Tag = option.Prop != null ? Path.Combine(JsonDirectory, $"{option.Prop.Replace("<style_name>", "style_name")}.json") : option.Default
 			};
-			if (option.Prop == null)
+			if (option.Prop != null)
 			{
-				if (nodeText == "Inside" || nodeText == "Slider")
+				if (pre != null)
 				{
-					node.Tag = Path.Combine(JsonDirectory, $"DataZoom{nodeText}.json");
-				}
-				if (nodeText == "Continuous" || nodeText == "Piecewise")
-				{
-					node.Tag = Path.Combine(JsonDirectory, $"VisualMap{nodeText}.json");
+					node.Tag = pre.Tag;
 				}
 
-				if (pre != null && pre.Text.Contains("Series[]"))
+				if (option.IsArray)
 				{
-					node.Tag = Path.Combine(JsonDirectory, $"series{nodeText}.json");
-
+					node.Text += @"[]";
 				}
 
 				return node;
 			}
 
-			if (pre != null)
+			switch (nodeText)
 			{
-				node.Tag = pre.Tag;
-			}
-			if (option.IsArray)
-			{
-				node.Text += @"[]";
+				case "Inside":
+				case "Slider":
+					node.Tag = Path.Combine(JsonDirectory, $"DataZoom{nodeText}.json");
+					break;
+				case "Continuous":
+				case "Piecewise":
+					node.Tag = Path.Combine(JsonDirectory, $"VisualMap{nodeText}.json");
+					break;
 			}
 
+			if (pre != null && pre.Text.Contains("Series[]"))
+			{
+				node.Tag = Path.Combine(JsonDirectory, $"series{nodeText}.json");
+			}
 			return node;
-
 		}
 
 		/// <summary>
@@ -176,7 +170,6 @@ namespace FxEchartHtml
 			_currClassInfo = classInfo;
 			DemoInfo.ShowDemo(webView21, _currClassInfo, this);
 			DisplayClassInfoAtTopLevel(classInfo);
-			//return;
 
 			if (e.Node.Level == 0 && classInfo.Description == "") webBrowser1.DocumentText = "";
 			if (e.Node.Text == @"Slider" || e.Node.Text == @"Inside")
@@ -187,18 +180,30 @@ namespace FxEchartHtml
 
 			DisplayPropertyInfo(e.Node, classInfo);
 		}
-
+		private async void DisplayHtmlString(string html)
+		{
+			if (webView22.CoreWebView2 != null)
+			{
+				webView22.CoreWebView2.NavigateToString(html);
+			}
+			else
+			{
+				await webView22.EnsureCoreWebView2Async();
+				webView22.CoreWebView2?.NavigateToString(html);
+			}
+		}
 		/// <summary>
 		/// 顶级类信息显示
 		/// </summary>
 		private void DisplayClassInfoAtTopLevel(ClassInfo classInfo)
 		{
 			string info = "";
-			webBrowser1.DocumentText = $"{classInfo.Description}\n";
+			var a = $"{classInfo.Description.Replace(SimpleHttpServer.RootPath, "http://localhost:8088")}\n";
+			DisplayHtmlString(a);
+			webBrowser1.DocumentText = a;
 			if (classInfo.Example != null)
 				foreach (var r in classInfo.Example)
 				{
-
 					info += $"\n{r.Title}\n code:\n {r.Code}\n";
 				}
 
@@ -242,7 +247,7 @@ namespace FxEchartHtml
 					if (ParseEchartJs.ToPascalCase(property.PropertyName) != nodeText) continue;
 					// 构建文本信息
 					var info =
-						$"Class Name: <a>{classInfo.NewClassName}</a>\nProperty Name:  <a>{property.PropertyName.Replace("[]", "")}</a>\nProperty Type:  <a>{property.PropertyType}</a>\n";
+						$"Class Name: <a>{classInfo.NewClassName}</a>\nProperty Name:  <a>{property.PropertyName.Replace("[]", "")}</a>\nProperty Type:  <a>{HttpUtility.HtmlEncode(property.PropertyType)}</a>\n";
 
 					if (!string.IsNullOrEmpty(property.PropertyDescription))
 					{
@@ -325,7 +330,6 @@ pre {
 					_classToFileMap[className] = file;
 				}
 			}
-
 			LoadAllClassesIntoCache();
 		}
 
@@ -335,48 +339,31 @@ pre {
 		private void LoadAllClassesIntoCache()
 		{
 			var item = ParseEchartJs.GenerateClassItem();
-
 			foreach (var kvp in _classToFileMap)
 			{
 				var className = kvp.Key;
 				if (_classInfoCache.ContainsKey(className)) continue;
 				var classInfo = LoadClassInfoFromJson(kvp.Value);
-				if (classInfo != null)
+				if (classInfo == null) continue;
+				foreach (var r in item)
 				{
-					if (classInfo.ClassName.Contains("Lines"))
-					{
-						Debug.Assert(true);
-					}
-					foreach (var r in item)
-					{
-						if (r.Key.Contains("lines"))
-						{
-							Debug.Assert(true);
-						}
-						if (classInfo.ClassName == ParseEchartJs.ToPascalCase(r.Key.Replace("-", "_")))
-						{
-							classInfo.Description = r.Value.Desc;
-							break;
-						}
-					}
-
-					CacheClassInfo(classInfo);
+					if (classInfo.ClassName != ParseEchartJs.ToPascalCase(r.Key.Replace("-", "_"))) continue;
+					classInfo.Description = r.Value.Desc;
+					break;
 				}
+				CacheClassInfo(classInfo);
 			}
-
-			if (item != null)
-				_classInfoCache["VisualMap"] = new ClassInfo()
-				{
-					Description = item["visualMap"].Desc,
-					Example = item["visualMap"].ExampleBaseOptions
-				};
-			if (item != null)
-				_classInfoCache["DataZoom"] = new ClassInfo()
-				{
-					Description = item["dataZoom"].Desc,
-					Example = item["dataZoom"].ExampleBaseOptions
-				};
-
+			if (item == null) return;
+			_classInfoCache["VisualMap"] = new ClassInfo()
+			{
+				Description = item["visualMap"].Desc,
+				Example = item["visualMap"].ExampleBaseOptions
+			};
+			_classInfoCache["DataZoom"] = new ClassInfo()
+			{
+				Description = item["dataZoom"].Desc,
+				Example = item["dataZoom"].ExampleBaseOptions
+			};
 		}
 
 		/// <summary>
@@ -398,20 +385,6 @@ pre {
 			}
 		}
 
-		/// <summary>
-		/// 从缓存中直接获取类信息
-		/// </summary>
-		public ClassInfo GetClassInfo(string className)
-		{
-			className = ParseEchartJs.ToPascalCase(className);
-			_classInfoCache.TryGetValue(className, out var classInfo);
-			return classInfo;
-		}
-
-		private void ToolStripButton2_Click(object sender, EventArgs e)
-		{
-			DemoInfo.ShowDemo(webView21, _currClassInfo, this);
-		}
 		private void ToolStripButton3_Click(object sender, EventArgs e)
 		{
 			_ = HtmlParser.GetDemoJs();
@@ -423,7 +396,7 @@ pre {
 			f.Show();
 		}
 
-		private void ToolStripButton2_Click_1(object sender, EventArgs e)
+		private void ToolStripButton2_Click(object sender, EventArgs e)
 		{
 			// 正则表达式匹配code:标签之间的代码
 			string pattern = @"code:\s*([\s\S]*?)(?=\s*code:|\s*$)";

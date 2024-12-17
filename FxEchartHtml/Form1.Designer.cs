@@ -42,6 +42,7 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.textBox1 = new System.Windows.Forms.RichTextBox();
 			this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
+			this.webView22 = new Microsoft.Web.WebView2.WinForms.WebView2();
 			this.toolStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -57,6 +58,7 @@
 			this.splitContainer4.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.webView22)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// toolStrip1
@@ -90,7 +92,7 @@
 			this.toolStripButton2.Name = "toolStripButton2";
 			this.toolStripButton2.Size = new System.Drawing.Size(60, 22);
 			this.toolStripButton2.Text = "运行代码";
-			this.toolStripButton2.Click += new System.EventHandler(this.ToolStripButton2_Click_1);
+			this.toolStripButton2.Click += new System.EventHandler(this.ToolStripButton2_Click);
 			// 
 			// toolStripButton3
 			// 
@@ -164,6 +166,7 @@
 			// 
 			// splitContainer4.Panel1
 			// 
+			this.splitContainer4.Panel1.Controls.Add(this.webView22);
 			this.splitContainer4.Panel1.Controls.Add(this.webBrowser1);
 			// 
 			// splitContainer4.Panel2
@@ -215,6 +218,20 @@
 			this.webView21.TabIndex = 2;
 			this.webView21.ZoomFactor = 1D;
 			// 
+			// webView22
+			// 
+			this.webView22.AllowExternalDrop = true;
+			this.webView22.BackColor = System.Drawing.SystemColors.Control;
+			this.webView22.CreationProperties = null;
+			this.webView22.DefaultBackgroundColor = System.Drawing.Color.White;
+			this.webView22.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.webView22.Location = new System.Drawing.Point(0, 0);
+			this.webView22.Name = "webView22";
+			this.webView22.Size = new System.Drawing.Size(403, 236);
+			this.webView22.TabIndex = 1;
+			this.webView22.Visible = false;
+			this.webView22.ZoomFactor = 1D;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -242,6 +259,7 @@
 			this.splitContainer4.ResumeLayout(false);
 			this.groupBox1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.webView22)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -262,6 +280,7 @@
 		private System.Windows.Forms.ToolStripButton toolStripButton2;
 		private System.Windows.Forms.ToolStripButton toolStripButton4;
 		private System.Windows.Forms.GroupBox groupBox1;
+		private Microsoft.Web.WebView2.WinForms.WebView2 webView22;
 	}
 }
 

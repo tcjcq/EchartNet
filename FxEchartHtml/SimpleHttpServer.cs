@@ -16,8 +16,8 @@ namespace FxEchartHtml
 		// 定义一个事件来处理请求
 		public event EventHandler<HttpListenerContext> RequestReceived;
 
-		public string RootPath { get; set; } = "https://echarts.apache.org/examples";
-		private readonly string _cacheDirectory = "cache";
+		public static string RootPath { get; set; } = "https://echarts.apache.org/examples";
+		private static readonly string CacheDirectory = "cache";
 
 		public SimpleHttpServer(string[] prefixes)
 		{
@@ -41,7 +41,14 @@ namespace FxEchartHtml
 					try
 					{
 						var context = _listener.GetContext();
-						CustomRequestHandler(context);
+						if (RequestReceived == null)
+						{
+							DefaultRequestHandler(context);
+						}
+						else
+						{
+							RequestReceived.Invoke(this, context);
+						}
 
 					}
 					catch (HttpListenerException e)
@@ -56,14 +63,14 @@ namespace FxEchartHtml
 			});
 		}
 
-		public void CustomRequestHandler(HttpListenerContext context)
+		public static void CustomRequestHandler(object sender, HttpListenerContext context)
 		{
 			try
 			{
 				var request = context.Request;
 				var response = context.Response;
 				string relativePath = request.Url.AbsolutePath.TrimStart('/');
-				string cacheFilePath = Path.Combine(_cacheDirectory, relativePath.Replace('/', '_'));
+				string cacheFilePath = Path.Combine(CacheDirectory, relativePath.Replace('/', '_'));
 				string cacheMetadataPath = cacheFilePath + ".meta";
 
 
@@ -140,14 +147,14 @@ namespace FxEchartHtml
 					{
 						var buffer = new byte[40960];
 						int bytesRead;
-						while ((bytesRead = targetResponseStream.Read(buffer, 0, buffer.Length)) > 0)
+						while (targetResponseStream != null && (bytesRead = targetResponseStream.Read(buffer, 0, buffer.Length)) > 0)
 						{
 							memoryStream.Write(buffer, 0, bytesRead);
 							response.OutputStream.Write(buffer, 0, bytesRead);
 						}
 
 						// Save the content to the cache
-						Directory.CreateDirectory(Path.GetDirectoryName(cacheFilePath));
+						Directory.CreateDirectory(Path.GetDirectoryName(cacheFilePath) ?? string.Empty);
 						File.WriteAllBytes(cacheFilePath, memoryStream.ToArray());
 						Debug.WriteLine("Saved to cache: " + cacheFilePath);
 					}
