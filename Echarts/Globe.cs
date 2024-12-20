@@ -943,7 +943,7 @@ namespace Echarts
 		/// 跟 baseTexture 混合。
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "overlay";
 
 		/// <summary>
 		/// 层的名字，在用 setOption 设置层属性的时候可以用 name 来标识需要更新的层。

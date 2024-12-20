@@ -422,7 +422,7 @@ namespace Echarts
 		/// group,
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "group";
 
 		/// <summary>
 		/// id 用于在更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。
@@ -937,7 +937,7 @@ namespace Echarts
 		/// group,
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "image";
 
 		/// <summary>
 		/// id 用于在更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。
@@ -1624,7 +1624,7 @@ namespace Echarts
 		/// group,
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "text";
 
 		/// <summary>
 		/// id 用于在更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。
@@ -2350,7 +2350,7 @@ namespace Echarts
 		/// group,
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "rect";
 
 		/// <summary>
 		/// id 用于在更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。
@@ -2966,7 +2966,7 @@ namespace Echarts
 		/// group,
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "circle";
 
 		/// <summary>
 		/// id 用于在更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。
@@ -3563,7 +3563,7 @@ namespace Echarts
 		/// group,
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "ring";
 
 		/// <summary>
 		/// id 用于在更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。
@@ -4166,7 +4166,7 @@ namespace Echarts
 		/// group,
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "sector";
 
 		/// <summary>
 		/// id 用于在更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。
@@ -4787,7 +4787,7 @@ namespace Echarts
 		/// group,
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "polygon";
 
 		/// <summary>
 		/// id 用于在更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。
@@ -5387,7 +5387,7 @@ namespace Echarts
 		/// group,
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "line";
 
 		/// <summary>
 		/// id 用于在更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。
@@ -5996,7 +5996,7 @@ namespace Echarts
 		/// group,
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "bezierCurve";
 
 		/// <summary>
 		/// id 用于在更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。

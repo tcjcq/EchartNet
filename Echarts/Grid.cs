@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Echarts
@@ -593,7 +591,7 @@ namespace Echarts
 		/// 'cross' 十字准星指示器。其实是种简写，表示启用两个正交的轴的 axisPointer。
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "line";
 
 		/// <summary>
 		/// 指示器的坐标轴。

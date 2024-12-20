@@ -28,7 +28,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "sankey";
 
 		/// <summary>
 		/// 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。

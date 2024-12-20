@@ -277,7 +277,7 @@ namespace Echarts
 		/// 如果 renderer 的类型在 初始化图表 时被设为 'svg'，则 type 只支持 'svg'（'svg' 格式的图片从 v4.8.0 开始支持）。
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "png";
 
 		/// <summary>
 		/// 保存的文件名称，默认使用 title.text 作为名称。

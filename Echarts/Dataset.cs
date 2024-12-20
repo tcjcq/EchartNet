@@ -181,7 +181,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "filter";
 
 		/// <summary>
 		/// "sort" 数据转换器的“条件”。
@@ -221,7 +221,7 @@ namespace Echarts
 		/// 外部数据转换器须有名空间（如 type: 'ecStat:regression'）。
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "xxx:xxx";
 
 		/// <summary>
 		/// 这里设置每个数据转换器所须的参数。每种数据转换器有自己的参数格式定义。

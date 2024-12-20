@@ -60,7 +60,7 @@ namespace Echarts
 		///   对数轴，适用于对数数据。
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "value";
 
 		/// <summary>
 		/// 坐标轴刻度最小值。

@@ -118,7 +118,7 @@ namespace Echarts
 		/// 这个属性目前只支持为 slider，不需要更改。
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "slider";
 
 		/// <summary>
 		/// 轴的类型。可选值为：

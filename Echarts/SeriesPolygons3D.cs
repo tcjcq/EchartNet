@@ -16,7 +16,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "polygons3D";
 
 		/// <summary>
 		/// 是否一个数据包含多个多边形。

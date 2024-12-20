@@ -1,6 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
+
+using System.Collections.Generic;
 
 namespace Echarts
 {
@@ -19,7 +19,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "line";
 
 		/// <summary>
 		/// 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。
@@ -2823,6 +2823,8 @@ namespace Echarts
 	/// 当某数据不存在时（ps：不存在不代表值为 0），可以用 '-' 或者 null 或者 undefined 或者 NaN 表示。
 	/// 例如，无数据在折线图中可表现为该点是断开的，在其它图中可表示为图形不存在。
 	/// </summary>
+
+	[JsonConverter(typeof(SeriesLineDataConverter))]
 	public class SeriesLine_Data
 	{
 		/// <summary>

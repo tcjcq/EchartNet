@@ -17,7 +17,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "flowGL";
 
 		/// <summary>
 		/// 粒子的密度，实际的粒子数量是设置数目的平方。粒子密度越大迹线效果越好，但是性能开销也会越大。除了该属性，使用 particleType 也可以得到更加清晰连贯的迹线。

@@ -124,7 +124,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "custom";
 
 		/// <summary>
 		/// 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。
@@ -1186,7 +1186,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "group";
 
 		/// <summary>
 		/// 
@@ -1366,7 +1366,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "path";
 
 		/// <summary>
 		/// 
@@ -1637,7 +1637,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "image";
 
 		/// <summary>
 		/// 
@@ -1841,7 +1841,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "text";
 
 		/// <summary>
 		/// 
@@ -2045,7 +2045,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "rect";
 
 		/// <summary>
 		/// 
@@ -2261,7 +2261,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "circle";
 
 		/// <summary>
 		/// 
@@ -2477,7 +2477,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "ring";
 
 		/// <summary>
 		/// 
@@ -2693,7 +2693,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "sector";
 
 		/// <summary>
 		/// 
@@ -2909,7 +2909,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "polygon";
 
 		/// <summary>
 		/// 
@@ -3125,7 +3125,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "line";
 
 		/// <summary>
 		/// 
@@ -3341,7 +3341,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "bezierCurve";
 
 		/// <summary>
 		/// 

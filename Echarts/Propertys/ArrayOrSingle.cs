@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+
 using System.Collections.Generic;
 
 namespace Echarts
@@ -96,4 +97,6 @@ namespace Echarts
 				: _stringValues;
 		}
 	}
+
+	// 自定义JsonConverter支持反序列化
 }

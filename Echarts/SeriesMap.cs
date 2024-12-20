@@ -1,6 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
+
+using System.Collections.Generic;
 
 namespace Echarts
 {
@@ -19,7 +19,7 @@ namespace Echarts
 		/// 
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "map";
 
 		/// <summary>
 		/// 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。

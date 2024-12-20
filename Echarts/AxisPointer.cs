@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Echarts
@@ -92,7 +90,7 @@ namespace Echarts
 		/// 'none' 无指示器
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "line";
 
 		/// <summary>
 		/// 坐标轴指示器是否自动吸附到点上。默认自动判断。

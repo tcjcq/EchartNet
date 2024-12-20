@@ -85,6 +85,7 @@
     <Compile Include="Propertys\PaddingProperty.cs" />
     <Compile Include="Propertys\PercentVector.cs" />
     <Compile Include="Propertys\PercentVectorConverter.cs" />
+    <Compile Include="Propertys\SeriesLineDataConverter.cs" />
     <Compile Include="Propertys\SingleOrArrayConverter.cs" />
     <Compile Include="Propertys\StringOrBool.cs" />
     <Compile Include="Propertys\StringOrBoolConverter.cs" />

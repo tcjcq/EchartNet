@@ -73,7 +73,7 @@ namespace Echarts
 		///   对数轴。适用于对数数据。对数轴下的堆积柱状图或堆积折线图可能带来很大的视觉误差，并且在一定情况下可能存在非预期效果，应避免使用。
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "category";
 
 		/// <summary>
 		/// 坐标轴名称。
@@ -1986,7 +1986,7 @@ namespace Echarts
 		/// 'none' 无指示器
 		/// </summary>
 		[JsonProperty("type")]
-		public string Type { get; set; }
+		public string Type { get; set; } = "line";
 
 		/// <summary>
 		/// 坐标轴指示器是否自动吸附到点上。默认自动判断。

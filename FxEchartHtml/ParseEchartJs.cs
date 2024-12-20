@@ -77,7 +77,7 @@ namespace FxEchartHtml
 					}
 				}
 
-				var scanCount = 6;
+				var scanCount = 4;
 				_infos = new Dictionary<string, ClassInfo>[scanCount];
 				_infos[0] = new Dictionary<string, ClassInfo>();
 				ParseAllJsFile(_infos[0]);
@@ -1087,7 +1087,6 @@ namespace FxEchartHtml
 			}
 		}
 
-
 		/// <summary>
 		/// 解析指定的 JSON 文件，并生成对应的类信息。
 		/// </summary>	
@@ -1101,7 +1100,10 @@ namespace FxEchartHtml
 				Debug.WriteLine($"文件 {jsonFilePath} 不存在，请检查路径。");
 				return;
 			}
-
+			if (jsonFilePath.Contains("geo.js"))
+			{
+				Debug.WriteLine("");
+			}
 			Debug.WriteLine($"正在解析文件: {jsonFilePath}");
 
 			string fileContent;
@@ -1171,7 +1173,7 @@ namespace FxEchartHtml
 			if (example == null)
 			{
 				Debug.WriteLine($"类 {className} 的示例基础选项为空。");
-				return;
+				//return;
 			}
 
 			// 生成类信息
@@ -1202,6 +1204,11 @@ namespace FxEchartHtml
 			{
 				Debug.WriteLine($"文件 {jsonFilePath} 不存在，请检查路径。");
 				return;
+			}
+
+			if (jsonFilePath.Contains("geo.js"))
+			{
+				Debug.WriteLine("");
 			}
 
 			Debug.WriteLine($"正在解析文件: {jsonFilePath}");
@@ -1764,8 +1771,26 @@ namespace FxEchartHtml
 					$"        /// {StripHtmlTags(Uri.UnescapeDataString($"{property.PropertyDescription}"))}");
 				classContent.AppendLine("        /// </summary>");
 				classContent.AppendLine($"        [JsonProperty(\"{property.PropertyName}\")]");
-				classContent.AppendLine(
-					$"        public {property.PropertyType.Replace("_<styleName>", "")} {ToPascalCase(property.PropertyName)} {{ get; set; }}");
+				if (property.PropertyName == "type")
+				{
+					if (property.DefaultValue != null && property.PropertyType == "string")
+					{
+						classContent.AppendLine(
+							$"        public {property.PropertyType.Replace("_<styleName>", "")} {ToPascalCase(property.PropertyName)} {{ get; set; }}=\"{property.DefaultValue.ToString().Trim('\'')}\";");
+					}
+					else
+					{
+						classContent.AppendLine(
+							$"        public {property.PropertyType.Replace("_<styleName>", "")} {ToPascalCase(property.PropertyName)} {{ get; set; }}");
+					}
+
+				}
+				else
+				{
+					classContent.AppendLine(
+						$"        public {property.PropertyType.Replace("_<styleName>", "")} {ToPascalCase(property.PropertyName)} {{ get; set; }}");
+
+				}
 				classContent.AppendLine();
 			}
 
