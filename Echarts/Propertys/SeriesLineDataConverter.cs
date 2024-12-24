@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
 using System;
 
 namespace Echarts
@@ -16,21 +15,21 @@ namespace Echarts
 		{
 			var data = (SeriesLine_Data)value;
 
-			bool allOthersNull = data.Name == null &&
-								 data.GroupId == null &&
-								 data.ChildGroupId == null &&
-								 data.Symbol == null &&
-								 data.SymbolSize == null &&
-								 data.SymbolRotate == null &&
-								 data.SymbolKeepAspect == null &&
-								 data.SymbolOffset == null &&
-								 data.Label == null &&
-								 data.LabelLine == null &&
-								 data.ItemStyle == null &&
-								 data.Emphasis == null &&
-								 data.Blur == null &&
-								 data.Select == null &&
-								 data.Tooltip == null;
+			var allOthersNull = data.Name == null &&
+			                    data.GroupId == null &&
+			                    data.ChildGroupId == null &&
+			                    data.Symbol == null &&
+			                    data.SymbolSize == null &&
+			                    data.SymbolRotate == null &&
+			                    data.SymbolKeepAspect == null &&
+			                    data.SymbolOffset == null &&
+			                    data.Label == null &&
+			                    data.LabelLine == null &&
+			                    data.ItemStyle == null &&
+			                    data.Emphasis == null &&
+			                    data.Blur == null &&
+			                    data.Select == null &&
+			                    data.Tooltip == null;
 
 			if (allOthersNull && data.Value.HasValue)
 			{
@@ -40,29 +39,31 @@ namespace Echarts
 			else
 			{
 				// 否则按对象正常序列化
-				JObject jo = JObject.FromObject(data, serializer);
+				var jo = JObject.FromObject(data, serializer);
 				jo.WriteTo(writer);
 			}
 		}
 
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+			JsonSerializer serializer)
 		{
 			// 根据当前Token类型判断数据格式
 			if (reader.TokenType == JsonToken.Integer || reader.TokenType == JsonToken.Float)
 			{
 				// 纯数值情况
-				double value = Convert.ToDouble(reader.Value);
+				var value = Convert.ToDouble(reader.Value);
 				return new SeriesLine_Data { Value = value };
 			}
 			else if (reader.TokenType == JsonToken.StartObject)
 			{
 				// 对象情况，直接反序列化为 SeriesLine_Data
-				JObject obj = JObject.Load(reader);
+				var obj = JObject.Load(reader);
 				return obj.ToObject<SeriesLine_Data>(serializer);
 			}
 			else
 			{
-				throw new JsonSerializationException("Unexpected token type when parsing SeriesLine_Data: " + reader.TokenType);
+				throw new JsonSerializationException("Unexpected token type when parsing SeriesLine_Data: " +
+				                                     reader.TokenType);
 			}
 		}
 	}
