@@ -547,6 +547,5 @@ namespace Echarts
 		/// </summary>
 		[JsonProperty("ondrop")]
 		public string Ondrop { get; set; }
-
 	}
 }
