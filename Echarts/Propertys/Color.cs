@@ -1,8 +1,8 @@
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Echarts
 {
@@ -10,7 +10,7 @@ namespace Echarts
 	public class Color
 	{
 		private static readonly string[] DefaultColors =
-			new[] { "#5470c6", "#91cc75", "#fac858", "#ee6666", "#73c0de", "#3ba272", "#fc8452", "#9a60b4", "#ea7ccc" };
+			{ "#5470c6", "#91cc75", "#fac858", "#ee6666", "#73c0de", "#3ba272", "#fc8452", "#9a60b4", "#ea7ccc" };
 
 		public Color() : this(DefaultColors)
 		{

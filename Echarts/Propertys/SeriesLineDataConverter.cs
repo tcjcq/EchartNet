@@ -1,6 +1,6 @@
+using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 
 namespace Echarts
 {
@@ -54,17 +54,16 @@ namespace Echarts
 				var value = Convert.ToDouble(reader.Value);
 				return new SeriesLine_Data { Value = value };
 			}
-			else if (reader.TokenType == JsonToken.StartObject)
+
+			if (reader.TokenType == JsonToken.StartObject)
 			{
 				// 对象情况，直接反序列化为 SeriesLine_Data
 				var obj = JObject.Load(reader);
 				return obj.ToObject<SeriesLine_Data>(serializer);
 			}
-			else
-			{
-				throw new JsonSerializationException("Unexpected token type when parsing SeriesLine_Data: " +
-				                                     reader.TokenType);
-			}
+
+			throw new JsonSerializationException("Unexpected token type when parsing SeriesLine_Data: " +
+			                                     reader.TokenType);
 		}
 	}
 }

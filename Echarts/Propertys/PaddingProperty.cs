@@ -1,20 +1,15 @@
+using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 
 namespace Echarts
 {
 	/// <summary>
-	/// 内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距，或单一数字设定全部方向。
+	///     内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距，或单一数字设定全部方向。
 	/// </summary>
 	[JsonConverter(typeof(PaddingConverter))]
 	public class PaddingProperty
 	{
-		public int Top { get; private set; }
-		public int Right { get; private set; }
-		public int Bottom { get; private set; }
-		public int Left { get; private set; }
-
 		public PaddingProperty(int uniformPadding)
 		{
 			Top = Right = Bottom = Left = uniformPadding;
@@ -44,6 +39,11 @@ namespace Echarts
 				throw new ArgumentException("数组必须包含 1、2 或 4 个元素。");
 			}
 		}
+
+		public int Top { get; }
+		public int Right { get; }
+		public int Bottom { get; }
+		public int Left { get; }
 
 		public static implicit operator PaddingProperty(int uniformPadding)
 		{

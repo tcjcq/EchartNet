@@ -1,18 +1,12 @@
+using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 
 namespace Echarts
 {
 	[JsonConverter(typeof(BorderRadiusConverter))]
 	public class BorderRadiusProperty
 	{
-		// 分别表示左上、右上、右下、左下四个角的半径
-		public int TopLeft { get; private set; }
-		public int TopRight { get; private set; }
-		public int BottomRight { get; private set; }
-		public int BottomLeft { get; private set; }
-
 		// 构造函数，用于设置统一的边框圆角半径
 
 		public BorderRadiusProperty(int uniformRadius)
@@ -30,6 +24,12 @@ namespace Echarts
 			BottomRight = radii[2];
 			BottomLeft = radii[3];
 		}
+
+		// 分别表示左上、右上、右下、左下四个角的半径
+		public int TopLeft { get; }
+		public int TopRight { get; }
+		public int BottomRight { get; }
+		public int BottomLeft { get; }
 
 		// 允许从 int 隐式转换为 BorderRadiusProperty
 		public static implicit operator BorderRadiusProperty(int uniformRadius)

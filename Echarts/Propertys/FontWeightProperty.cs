@@ -1,17 +1,17 @@
+using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 
 namespace Echarts
 {
 	/// <summary>
-	/// 文字字体的粗细。
-	/// 可选：
-	/// 'normal'
-	/// 'bold'
-	/// 'bolder'
-	/// 'lighter'
-	/// 100 | 200 | 300 | 400...
+	///     文字字体的粗细。
+	///     可选：
+	///     'normal'
+	///     'bold'
+	///     'bolder'
+	///     'lighter'
+	///     100 | 200 | 300 | 400...
 	/// </summary>
 	[JsonConverter(typeof(FontWeightConverter))]
 	public class FontWeightProperty

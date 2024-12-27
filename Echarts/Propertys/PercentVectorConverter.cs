@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Echarts
 {
 	/// <summary>
-	/// 自定义 JSON 转换器，用于序列化和反序列化 PercentVector。
+	///     自定义 JSON 转换器，用于序列化和反序列化 PercentVector。
 	/// </summary>
 	public class PercentVectorConverter : JsonConverter
 	{
@@ -22,8 +22,9 @@ namespace Echarts
 				var list = serializer.Deserialize<List<string>>(reader);
 				return new PercentVector { ArrayValues = list };
 			}
-			else if (reader.TokenType == JsonToken.String || reader.TokenType == JsonToken.Float ||
-			         reader.TokenType == JsonToken.Integer)
+
+			if (reader.TokenType == JsonToken.String || reader.TokenType == JsonToken.Float ||
+			    reader.TokenType == JsonToken.Integer)
 			{
 				var singleValue = serializer.Deserialize<string>(reader);
 				return new PercentVector { SingleValue = singleValue };

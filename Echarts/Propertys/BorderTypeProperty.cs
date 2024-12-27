@@ -1,16 +1,16 @@
+using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 
 namespace Echarts
 {
 	/// <summary>
-	/// 文字本身的描边类型。
-	/// 可选：
-	/// 'solid'
-	/// 'dashed'
-	/// 'dotted'
-	/// 自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 dash array，配合 textBorderDashOffset 可实现更灵活的虚线效果。
+	///     文字本身的描边类型。
+	///     可选：
+	///     'solid'
+	///     'dashed'
+	///     'dotted'
+	///     自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 dash array，配合 textBorderDashOffset 可实现更灵活的虚线效果。
 	/// </summary>
 	[JsonConverter(typeof(BorderTypeConverter))]
 	public class BorderTypeProperty

@@ -1,5 +1,5 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Echarts
 {
@@ -9,10 +9,10 @@ namespace Echarts
 		private readonly bool? _boolValue;
 		private readonly List<double> _doubleValues;
 		private readonly List<int> _intValues;
-		private readonly List<string> _stringValues;
-		private readonly int? _singleIntValue;
 		private readonly double? _singleDoubleValue;
+		private readonly int? _singleIntValue;
 		private readonly string _singleStringValue;
+		private readonly List<string> _stringValues;
 
 		public ArrayOrSingle(bool value)
 		{

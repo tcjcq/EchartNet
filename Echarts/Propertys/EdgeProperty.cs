@@ -1,24 +1,14 @@
-using Newtonsoft.Json;
 using System;
+using Newtonsoft.Json;
 
 namespace Echarts
 {
 	[JsonConverter(typeof(EdgePropertyConverter))]
 	public class EdgeProperty
 	{
-		private enum SpecialPosition
-		{
-			Auto,
-			Left,
-			Center,
-			Right,
-			Top,
-			Bottom,
-			Middle
-		}
+		private readonly string _percentageValue;
 
 		private readonly int? _pixelValue;
-		private readonly string _percentageValue;
 		private readonly SpecialPosition? _specialPosition;
 
 		public EdgeProperty(int pixels)
@@ -54,6 +44,17 @@ namespace Echarts
 			if (_percentageValue != null) return _percentageValue;
 			if (_specialPosition.HasValue) return _specialPosition.Value.ToString().ToLowerInvariant();
 			return "auto";
+		}
+
+		private enum SpecialPosition
+		{
+			Auto,
+			Left,
+			Center,
+			Right,
+			Top,
+			Bottom,
+			Middle
 		}
 	}
 

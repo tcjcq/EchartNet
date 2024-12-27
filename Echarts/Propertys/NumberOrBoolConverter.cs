@@ -1,11 +1,13 @@
+using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 
 namespace Echarts
 {
 	public class NumberOrBoolConverter : JsonConverter
 	{
+		public override bool CanWrite => true;
+
 		public override bool CanConvert(Type t)
 		{
 			return t == typeof(NumberOrBool);
@@ -34,7 +36,5 @@ namespace Echarts
 			var numberOrBool = (NumberOrBool)value;
 			serializer.Serialize(writer, numberOrBool.Value);
 		}
-
-		public override bool CanWrite => true;
 	}
 }

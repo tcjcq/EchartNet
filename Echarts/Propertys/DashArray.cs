@@ -1,16 +1,16 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Echarts
 {
 	/// <summary>
-	/// 贴花图案的基本模式是在横向和纵向上分别以图案
-	/// - 空白 - 图案 - 空白 - 图案 - 空白的形式无限循环。
-	/// 通过设置每个图案和空白的长度，可以实现复杂的图案效果。
-	/// dashArrayX 控制了横向的图案模式。
-	/// 当其值为 number 或 number[] 类型时，与 SVG stroke-dasharray 类似。
+	///     贴花图案的基本模式是在横向和纵向上分别以图案
+	///     - 空白 - 图案 - 空白 - 图案 - 空白的形式无限循环。
+	///     通过设置每个图案和空白的长度，可以实现复杂的图案效果。
+	///     dashArrayX 控制了横向的图案模式。
+	///     当其值为 number 或 number[] 类型时，与 SVG stroke-dasharray 类似。
 	/// </summary>
 	[JsonConverter(typeof(DashArrayConverter))]
 	public class DashArray

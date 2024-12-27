@@ -1,60 +1,50 @@
-using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Echarts
 {
 	/// <summary>
-	/// 饼图图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。
+	///     饼图图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。
 	/// </summary>
 	public class SeriesPie_Label
 	{
 		/// <summary>
-		/// 
 		/// </summary>
 		[JsonProperty("show")]
 		public bool? Show { get; set; }
 
 		/// <summary>
-		/// 标签的位置。
-		/// 可选：
-		/// 
-		/// 'outside'
-		///   饼图扇区外侧，通过视觉引导线连到相应的扇区。
-		/// 
-		/// 'inside'
-		///   饼图扇区内部。
-		/// 
-		/// 'inner' 同 'inside'。
-		/// 
-		/// 'center'
-		///   在饼图中心位置。见圆环图示例
+		///     标签的位置。
+		///     可选：
+		///     'outside'
+		///     饼图扇区外侧，通过视觉引导线连到相应的扇区。
+		///     'inside'
+		///     饼图扇区内部。
+		///     'inner' 同 'inside'。
+		///     'center'
+		///     在饼图中心位置。见圆环图示例
 		/// </summary>
 		[JsonProperty("position")]
 		public string Position { get; set; }
 
 		/// <summary>
-		/// 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \n 换行。
-		/// 字符串模板
-		/// 字符串模板
-		/// 模板变量有：
-		/// 
-		/// {a}：系列名。
-		/// {b}：数据名。
-		/// {c}：数据值。
-		/// {d}：百分比。
-		/// {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。
-		/// {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。
-		/// 
-		/// 示例：
-		/// formatter: '{b}: {d}'
-		/// 
-		/// 回调函数
-		/// 回调函数格式：
-		/// (params: Object|Array) => string
-		/// 
-		/// 参数 params 是 formatter 需要的单个数据集。格式如下：
-		/// {
+		///     标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \n 换行。
+		///     字符串模板
+		///     字符串模板
+		///     模板变量有：
+		///     {a}：系列名。
+		///     {b}：数据名。
+		///     {c}：数据值。
+		///     {d}：百分比。
+		///     {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。
+		///     {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。
+		///     示例：
+		///     formatter: '{b}: {d}'
+		///     回调函数
+		///     回调函数格式：
+		///     (params: Object|Array) => string
+		///     参数 params 是 formatter 需要的单个数据集。格式如下：
+		///     {
 		///     componentType: 'series',
 		///     // 系列类型
 		///     seriesType: string,
@@ -80,400 +70,371 @@ namespace Echarts
 		///     // }
 		///     encode: Object,
 		///     // 维度名列表
-		///     dimensionNames: Array<String>,
-		///     // 数据的维度 index，如 0 或 1 或 2 ...
-		///     // 仅在雷达图中使用。
-		///     dimensionIndex: number,
-		///     // 数据图形的颜色
-		///     color: string,
-		///     // 百分比
-		///     percent: number
-		/// }
-		/// 
-		/// 注：encode 和 dimensionNames 的使用方式，例如：
-		/// 如果数据为：
-		/// dataset: {
-		///     source: [
+		///     dimensionNames: Array
+		///     <String>
+		///         ,
+		///         // 数据的维度 index，如 0 或 1 或 2 ...
+		///         // 仅在雷达图中使用。
+		///         dimensionIndex: number,
+		///         // 数据图形的颜色
+		///         color: string,
+		///         // 百分比
+		///         percent: number
+		///         }
+		///         注：encode 和 dimensionNames 的使用方式，例如：
+		///         如果数据为：
+		///         dataset: {
+		///         source: [
 		///         ['Matcha Latte', 43.3, 85.8, 93.7],
 		///         ['Milk Tea', 83.1, 73.4, 55.1],
 		///         ['Cheese Cocoa', 86.4, 65.2, 82.5],
 		///         ['Walnut Brownie', 72.4, 53.9, 39.1]
-		///     ]
-		/// }
-		/// 
-		/// 则可这样得到 y 轴对应的 value：
-		/// params.value[params.encode.y[0]]
-		/// 
-		/// 如果数据为：
-		/// dataset: {
-		///     dimensions: ['product', '2015', '2016', '2017'],
-		///     source: [
+		///         ]
+		///         }
+		///         则可这样得到 y 轴对应的 value：
+		///         params.value[params.encode.y[0]]
+		///         如果数据为：
+		///         dataset: {
+		///         dimensions: ['product', '2015', '2016', '2017'],
+		///         source: [
 		///         {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},
 		///         {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},
 		///         {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},
 		///         {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}
-		///     ]
-		/// }
-		/// 
-		/// 则可这样得到 y 轴对应的 value：
-		/// params.value[params.dimensionNames[params.encode.y[0]]]
+		///         ]
+		///         }
+		///         则可这样得到 y 轴对应的 value：
+		///         params.value[params.dimensionNames[params.encode.y[0]]]
 		/// </summary>
 		[JsonProperty("formatter")]
 		public string Formatter { get; set; }
 
 		/// <summary>
-		/// 标签旋转：
-		/// 
-		/// 如果为 true 或 'radial'，则为径向排布。（'radial' 字面量从 v5.2.0 开始支持）
-		/// 如果为 'tangential'，则为切向排布。（从 v5.2.0 开始支持）
-		/// 如果为 number ，旋转指定角度，从 -90 度到 90 度。正值是逆时针。
+		///     标签旋转：
+		///     如果为 true 或 'radial'，则为径向排布。（'radial' 字面量从 v5.2.0 开始支持）
+		///     如果为 'tangential'，则为切向排布。（从 v5.2.0 开始支持）
+		///     如果为 number ，旋转指定角度，从 -90 度到 90 度。正值是逆时针。
 		/// </summary>
 		[JsonProperty("rotate")]
 		public StringOrNumber Rotate { get; set; }
 
 		/// <summary>
-		/// 从 v5.0.0 开始支持
-		/// 
-		/// 用于控制标签之间的最小距离，当启用 labelLayout 时可能会用到。
+		///     从 v5.0.0 开始支持
+		///     用于控制标签之间的最小距离，当启用 labelLayout 时可能会用到。
 		/// </summary>
 		[JsonProperty("minMargin")]
 		public double? MinMargin { get; set; }
 
 		/// <summary>
-		/// 文字的颜色。
-		/// 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。
+		///     文字的颜色。
+		///     如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。
 		/// </summary>
 		[JsonProperty("color")]
 		public Color Color { get; set; }
 
 		/// <summary>
-		/// 文字字体的风格。
-		/// 可选：
-		/// 
-		/// 'normal'
-		/// 'italic'
-		/// 'oblique'
+		///     文字字体的风格。
+		///     可选：
+		///     'normal'
+		///     'italic'
+		///     'oblique'
 		/// </summary>
 		[JsonProperty("fontStyle")]
 		public string FontStyle { get; set; }
 
 		/// <summary>
-		/// 文字字体的粗细。
-		/// 可选：
-		/// 
-		/// 'normal'
-		/// 'bold'
-		/// 'bolder'
-		/// 'lighter'
-		/// 100 | 200 | 300 | 400...
+		///     文字字体的粗细。
+		///     可选：
+		///     'normal'
+		///     'bold'
+		///     'bolder'
+		///     'lighter'
+		///     100 | 200 | 300 | 400...
 		/// </summary>
 		[JsonProperty("fontWeight")]
 		public StringOrNumber FontWeight { get; set; }
 
 		/// <summary>
-		/// 文字的字体系列。
-		/// 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
+		///     文字的字体系列。
+		///     还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
 		/// </summary>
 		[JsonProperty("fontFamily")]
 		public string FontFamily { get; set; }
 
 		/// <summary>
-		/// 文字的字体大小。
+		///     文字的字体大小。
 		/// </summary>
 		[JsonProperty("fontSize")]
 		public double? FontSize { get; set; }
 
 		/// <summary>
-		/// 行高。
-		/// rich 中如果没有设置 lineHeight，则会取父层级的 lineHeight。例如：
-		/// {
+		///     行高。
+		///     rich 中如果没有设置 lineHeight，则会取父层级的 lineHeight。例如：
+		///     {
 		///     lineHeight: 56,
 		///     rich: {
-		///         a: {
-		///             // 没有设置 `lineHeight`，则 `lineHeight` 为 56
-		///         }
+		///     a: {
+		///     // 没有设置 `lineHeight`，则 `lineHeight` 为 56
 		///     }
-		/// }
+		///     }
+		///     }
 		/// </summary>
 		[JsonProperty("lineHeight")]
 		public double? LineHeight { get; set; }
 
 		/// <summary>
-		/// 文字块背景色。
-		/// 可以使用颜色值，例如：'#123234', 'red', 'rgba(0,23,11,0.3)'。
-		/// 也可以直接使用图片，例如：
-		/// backgroundColor: {
+		///     文字块背景色。
+		///     可以使用颜色值，例如：'#123234', 'red', 'rgba(0,23,11,0.3)'。
+		///     也可以直接使用图片，例如：
+		///     backgroundColor: {
 		///     image: 'xxx/xxx.png'
 		///     // 这里可以是图片的 URL，
 		///     // 或者图片的 dataURI，
 		///     // 或者 HTMLImageElement 对象，
 		///     // 或者 HTMLCanvasElement 对象。
-		/// }
-		/// 
-		/// 当使用图片的时候，可以使用 width 或 height 指定高宽，也可以不指定自适应。
-		/// 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。
+		///     }
+		///     当使用图片的时候，可以使用 width 或 height 指定高宽，也可以不指定自适应。
+		///     如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。
 		/// </summary>
 		[JsonProperty("backgroundColor")]
 		public Color BackgroundColor { get; set; }
 
 		/// <summary>
-		/// 文字块边框颜色。
-		/// 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。
+		///     文字块边框颜色。
+		///     如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。
 		/// </summary>
 		[JsonProperty("borderColor")]
 		public Color BorderColor { get; set; }
 
 		/// <summary>
-		/// 文字块边框宽度。
+		///     文字块边框宽度。
 		/// </summary>
 		[JsonProperty("borderWidth")]
 		public double? BorderWidth { get; set; }
 
 		/// <summary>
-		/// 文字块边框描边类型。
-		/// 可选：
-		/// 
-		/// 'solid'
-		/// 'dashed'
-		/// 'dotted'
-		/// 
-		/// 自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 dash array，配合 
-		/// borderDashOffset
-		///  可实现更灵活的虚线效果。
-		/// 例如：
-		/// {
-		/// 
-		/// borderType: [5, 10],
-		/// 
-		/// borderDashOffset: 5
-		/// }
+		///     文字块边框描边类型。
+		///     可选：
+		///     'solid'
+		///     'dashed'
+		///     'dotted'
+		///     自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 dash array，配合
+		///     borderDashOffset
+		///     可实现更灵活的虚线效果。
+		///     例如：
+		///     {
+		///     borderType: [5, 10],
+		///     borderDashOffset: 5
+		///     }
 		/// </summary>
 		[JsonProperty("borderType")]
 		public StringOrNumber[] BorderType { get; set; }
 
 		/// <summary>
-		/// 从 v5.0.0 开始支持
-		/// 
-		/// 
-		/// 
-		/// 用于设置虚线的偏移量，可搭配 
-		/// borderType
-		///  指定 dash array 实现灵活的虚线效果。
-		/// 更多详情可以参考 MDN lineDashOffset。
+		///     从 v5.0.0 开始支持
+		///     用于设置虚线的偏移量，可搭配
+		///     borderType
+		///     指定 dash array 实现灵活的虚线效果。
+		///     更多详情可以参考 MDN lineDashOffset。
 		/// </summary>
 		[JsonProperty("borderDashOffset")]
 		public double? BorderDashOffset { get; set; }
 
 		/// <summary>
-		/// 文字块的圆角。
+		///     文字块的圆角。
 		/// </summary>
 		[JsonProperty("borderRadius")]
 		public ArrayOrSingle BorderRadius { get; set; }
 
 		/// <summary>
-		/// 文字块的内边距。例如：
-		/// 
-		/// padding: [3, 4, 5, 6]：表示 [上, 右, 下, 左] 的边距。
-		/// padding: 4：表示 padding: [4, 4, 4, 4]。
-		/// padding: [3, 4]：表示 padding: [3, 4, 3, 4]。
-		/// 
-		/// 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。
+		///     文字块的内边距。例如：
+		///     padding: [3, 4, 5, 6]：表示 [上, 右, 下, 左] 的边距。
+		///     padding: 4：表示 padding: [4, 4, 4, 4]。
+		///     padding: [3, 4]：表示 padding: [3, 4, 3, 4]。
+		///     注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。
 		/// </summary>
 		[JsonProperty("padding")]
 		public ArrayOrSingle Padding { get; set; }
 
 		/// <summary>
-		/// 文字块的背景阴影颜色。
+		///     文字块的背景阴影颜色。
 		/// </summary>
 		[JsonProperty("shadowColor")]
 		public Color ShadowColor { get; set; }
 
 		/// <summary>
-		/// 文字块的背景阴影长度。
+		///     文字块的背景阴影长度。
 		/// </summary>
 		[JsonProperty("shadowBlur")]
 		public double? ShadowBlur { get; set; }
 
 		/// <summary>
-		/// 文字块的背景阴影 X 偏移。
+		///     文字块的背景阴影 X 偏移。
 		/// </summary>
 		[JsonProperty("shadowOffsetX")]
 		public double? ShadowOffsetX { get; set; }
 
 		/// <summary>
-		/// 文字块的背景阴影 Y 偏移。
+		///     文字块的背景阴影 Y 偏移。
 		/// </summary>
 		[JsonProperty("shadowOffsetY")]
 		public double? ShadowOffsetY { get; set; }
 
 		/// <summary>
-		/// 文本显示宽度。
+		///     文本显示宽度。
 		/// </summary>
 		[JsonProperty("width")]
 		public double? Width { get; set; }
 
 		/// <summary>
-		/// 文本显示高度。
+		///     文本显示高度。
 		/// </summary>
 		[JsonProperty("height")]
 		public double? Height { get; set; }
 
 		/// <summary>
-		/// 文字本身的描边颜色。
-		/// 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。
+		///     文字本身的描边颜色。
+		///     如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。
 		/// </summary>
 		[JsonProperty("textBorderColor")]
 		public Color TextBorderColor { get; set; }
 
 		/// <summary>
-		/// 文字本身的描边宽度。
+		///     文字本身的描边宽度。
 		/// </summary>
 		[JsonProperty("textBorderWidth")]
 		public double? TextBorderWidth { get; set; }
 
 		/// <summary>
-		/// 文字本身的描边类型。
-		/// 可选：
-		/// 
-		/// 'solid'
-		/// 'dashed'
-		/// 'dotted'
-		/// 
-		/// 自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 dash array，配合 
-		/// textBorderDashOffset
-		///  可实现更灵活的虚线效果。
-		/// 例如：
-		/// {
-		/// 
-		/// textBorderType: [5, 10],
-		/// 
-		/// textBorderDashOffset: 5
-		/// }
+		///     文字本身的描边类型。
+		///     可选：
+		///     'solid'
+		///     'dashed'
+		///     'dotted'
+		///     自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 dash array，配合
+		///     textBorderDashOffset
+		///     可实现更灵活的虚线效果。
+		///     例如：
+		///     {
+		///     textBorderType: [5, 10],
+		///     textBorderDashOffset: 5
+		///     }
 		/// </summary>
 		[JsonProperty("textBorderType")]
 		public StringOrNumber[] TextBorderType { get; set; }
 
 		/// <summary>
-		/// 从 v5.0.0 开始支持
-		/// 
-		/// 
-		/// 
-		/// 用于设置虚线的偏移量，可搭配 
-		/// textBorderType
-		///  指定 dash array 实现灵活的虚线效果。
-		/// 更多详情可以参考 MDN lineDashOffset。
+		///     从 v5.0.0 开始支持
+		///     用于设置虚线的偏移量，可搭配
+		///     textBorderType
+		///     指定 dash array 实现灵活的虚线效果。
+		///     更多详情可以参考 MDN lineDashOffset。
 		/// </summary>
 		[JsonProperty("textBorderDashOffset")]
 		public double? TextBorderDashOffset { get; set; }
 
 		/// <summary>
-		/// 文字本身的阴影颜色。
+		///     文字本身的阴影颜色。
 		/// </summary>
 		[JsonProperty("textShadowColor")]
 		public Color TextShadowColor { get; set; }
 
 		/// <summary>
-		/// 文字本身的阴影长度。
+		///     文字本身的阴影长度。
 		/// </summary>
 		[JsonProperty("textShadowBlur")]
 		public double? TextShadowBlur { get; set; }
 
 		/// <summary>
-		/// 文字本身的阴影 X 偏移。
+		///     文字本身的阴影 X 偏移。
 		/// </summary>
 		[JsonProperty("textShadowOffsetX")]
 		public double? TextShadowOffsetX { get; set; }
 
 		/// <summary>
-		/// 文字本身的阴影 Y 偏移。
+		///     文字本身的阴影 Y 偏移。
 		/// </summary>
 		[JsonProperty("textShadowOffsetY")]
 		public double? TextShadowOffsetY { get; set; }
 
 		/// <summary>
-		/// 文字超出宽度是否截断或者换行。配置width时有效
-		/// 
-		/// 'truncate' 截断，并在末尾显示ellipsis配置的文本，默认为...
-		/// 'break' 换行
-		/// 'breakAll' 换行，跟'break'不同的是，在英语等拉丁文中，'breakAll'还会强制单词内换行
+		///     文字超出宽度是否截断或者换行。配置width时有效
+		///     'truncate' 截断，并在末尾显示ellipsis配置的文本，默认为...
+		///     'break' 换行
+		///     'breakAll' 换行，跟'break'不同的是，在英语等拉丁文中，'breakAll'还会强制单词内换行
 		/// </summary>
 		[JsonProperty("overflow")]
 		public string Overflow { get; set; }
 
 		/// <summary>
-		/// 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。
+		///     在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。
 		/// </summary>
 		[JsonProperty("ellipsis")]
 		public string Ellipsis { get; set; }
 
 		/// <summary>
-		/// 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。
-		/// 例如：
-		/// label: {
+		///     在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。
+		///     例如：
+		///     label: {
 		///     // 在文本中，可以对部分文本采用 rich 中定义样式。
 		///     // 这里需要在文本中使用标记符号：
 		///     // `{styleName|text content text content}` 标记样式名。
 		///     // 注意，换行仍是使用 '\n'。
 		///     formatter: [
-		///         '{a|这段文本采用样式a}',
-		///         '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'
+		///     '{a|这段文本采用样式a}',
+		///     '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'
 		///     ].join('\n'),
-		/// 
 		///     rich: {
-		///         a: {
-		///             color: 'red',
-		///             lineHeight: 10
-		///         },
-		///         b: {
-		///             backgroundColor: {
-		///                 image: 'xxx/xxx.jpg'
-		///             },
-		///             height: 40
-		///         },
-		///         x: {
-		///             fontSize: 18,
-		///             fontFamily: 'Microsoft YaHei',
-		///             borderColor: '#449933',
-		///             borderRadius: 4
-		///         },
-		///         ...
+		///     a: {
+		///     color: 'red',
+		///     lineHeight: 10
+		///     },
+		///     b: {
+		///     backgroundColor: {
+		///     image: 'xxx/xxx.jpg'
+		///     },
+		///     height: 40
+		///     },
+		///     x: {
+		///     fontSize: 18,
+		///     fontFamily: 'Microsoft YaHei',
+		///     borderColor: '#449933',
+		///     borderRadius: 4
+		///     },
+		///     ...
 		///     }
-		/// }
-		/// 
-		/// 详情参见教程：富文本标签
+		///     }
+		///     详情参见教程：富文本标签
 		/// </summary>
 		[JsonProperty("rich")]
 		public Dictionary<string, Rich0> Rich { get; set; }
 
 		/// <summary>
-		/// 标签的对齐方式，仅当 position 值为 'outer' 时有效。
-		/// 从 ECharts v4.6.0 版本起，我们提供了 'labelLine' 与 'edge' 两种新的布局方式。
-		/// 
-		/// 'none'（默认值）：label line 的长度为固定值，分别为 labelLine.length 及 labelLine.length2。
-		/// 'labelLine'：label line 的末端对齐，其中最短的长度由 labelLine.length2 决定。
-		/// 'edge'：文字对齐，文字的边距由 label.edgeDistance 决定。
+		///     标签的对齐方式，仅当 position 值为 'outer' 时有效。
+		///     从 ECharts v4.6.0 版本起，我们提供了 'labelLine' 与 'edge' 两种新的布局方式。
+		///     'none'（默认值）：label line 的长度为固定值，分别为 labelLine.length 及 labelLine.length2。
+		///     'labelLine'：label line 的末端对齐，其中最短的长度由 labelLine.length2 决定。
+		///     'edge'：文字对齐，文字的边距由 label.edgeDistance 决定。
 		/// </summary>
 		[JsonProperty("alignTo")]
 		public string AlignTo { get; set; }
 
 		/// <summary>
-		/// 文字边距，仅当 label.position 为 'outer' 并且 label.alignTo 为 'edge' 时有效。
-		/// 
-		/// 
-		/// 
-		/// 通常来说，对于移动端等分辨率较小的情况，edgeDistance 值设为比较小的值（比如 10）能在有限的空间内显示更多文字，而不是被裁剪为 ...。但是对于分辨率更大的场景，百分比的值可以避免 label line 过长。如果你需要在不同分辨率下使用，建议使用响应式图表设计为不同的分辨率设置不同的 edgeDistance 值。
+		///     文字边距，仅当 label.position 为 'outer' 并且 label.alignTo 为 'edge' 时有效。
+		///     通常来说，对于移动端等分辨率较小的情况，edgeDistance 值设为比较小的值（比如 10）能在有限的空间内显示更多文字，而不是被裁剪为 ...。但是对于分辨率更大的场景，百分比的值可以避免 label line
+		///     过长。如果你需要在不同分辨率下使用，建议使用响应式图表设计为不同的分辨率设置不同的 edgeDistance 值。
 		/// </summary>
 		[JsonProperty("edgeDistance")]
 		public StringOrNumber EdgeDistance { get; set; }
 
 		/// <summary>
-		/// 文字的出血线大小，超过出血线的文字将被裁剪为 '...'。仅当 label.position 为 'outer' 并且 label.alignTo 为 'none' 或 'labelLine' 的情况有效。
+		///     文字的出血线大小，超过出血线的文字将被裁剪为 '...'。仅当 label.position 为 'outer' 并且 label.alignTo 为 'none' 或 'labelLine' 的情况有效。
 		/// </summary>
 		[JsonProperty("bleedMargin")]
 		public double? BleedMargin { get; set; }
 
 		/// <summary>
-		/// 文字与 label line 之间的距离。
+		///     文字与 label line 之间的距离。
 		/// </summary>
 		[JsonProperty("distanceToLabelLine")]
 		public double? DistanceToLabelLine { get; set; }

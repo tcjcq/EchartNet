@@ -1,6 +1,6 @@
+using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 
 namespace Echarts
 {
@@ -26,7 +26,7 @@ namespace Echarts
 			case JTokenType.String:
 				return new StringOrNumber(token.ToString());
 			default:
-				return (StringOrNumber)null;
+				return null;
 			}
 		}
 
