@@ -84,7 +84,8 @@ namespace Echarts
 		///     ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']
 		/// </summary>
 		[JsonProperty("color")]
-		public Color Color { get; set; }
+		[JsonConverter(typeof(SingleOrArrayConverter<Color>))]
+		public List<Color> Color { get; set; }
 
 		/// <summary>
 		///     背景色，默认无背景。
@@ -98,6 +99,7 @@ namespace Echarts
 		///     各种图表数据
 		/// </summary>
 		[JsonProperty("series")]
+		[JsonConverter(typeof(SeriesListConverter))]
 		public List<object> Series { get; set; }
 
 		/// <summary>
@@ -107,6 +109,7 @@ namespace Echarts
 		///     当图例数量过多时，可以使用 滚动图例（垂直） 或 滚动图例（水平），参见：legend.type
 		/// </summary>
 		[JsonProperty("legend")]
+		[JsonConverter(typeof(SingleOrArrayConverter<Legend>))]
 		public List<Legend> Legend { get; set; }
 
 		/// <summary>
@@ -120,6 +123,7 @@ namespace Echarts
 		///     多于两个 x 轴需要通过配置 offset 属性防止同个位置多个 x 轴的重叠。
 		/// </summary>
 		[JsonProperty("xAxis")]
+		[JsonConverter(typeof(SingleOrArrayConverter<XAxis>))]
 		public List<XAxis> XAxis { get; set; }
 
 		/// <summary>
@@ -127,6 +131,7 @@ namespace Echarts
 		///     多于两个 y 轴需要通过配置 offset 属性防止同个位置多个 Y 轴的重叠。
 		/// </summary>
 		[JsonProperty("yAxis")]
+		[JsonConverter(typeof(SingleOrArrayConverter<YAxis>))]
 		public List<YAxis> YAxis { get; set; }
 
 		/// <summary>
