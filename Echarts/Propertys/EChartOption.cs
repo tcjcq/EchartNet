@@ -227,6 +227,7 @@ public class EChartOption
 	/// </summary>
 	[JsonProperty("grid")]
 	[JsonConverter(typeof(SingleOrArrayConverter<Grid>))]
+
 	public List<Grid> Grid { get; set; }
 
 	/// <summary>
