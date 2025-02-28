@@ -20,6 +20,7 @@ namespace Echarts
 	///     }
 	///     }, '周二', '周三', '周四', '周五', '周六', '周日']
 	/// </summary>
+	[JsonConverter(typeof(AxisDataConverter<XAxis_Data>))]
 	public class XAxis_Data
 	{
 		/// <summary>

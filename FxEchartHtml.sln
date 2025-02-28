@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FxEchartHtml", "FxEchartHtm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Echarts", "Echarts\Echarts.csproj", "{4624505F-5B33-46DD-8953-9BE4F01AC82F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionTest", "OptionTest\OptionTest.csproj", "{61F50EF7-415A-4D34-8798-1C1F48B1BAA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4624505F-5B33-46DD-8953-9BE4F01AC82F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4624505F-5B33-46DD-8953-9BE4F01AC82F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4624505F-5B33-46DD-8953-9BE4F01AC82F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61F50EF7-415A-4D34-8798-1C1F48B1BAA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61F50EF7-415A-4D34-8798-1C1F48B1BAA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61F50EF7-415A-4D34-8798-1C1F48B1BAA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61F50EF7-415A-4D34-8798-1C1F48B1BAA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

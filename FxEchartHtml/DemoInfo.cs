@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace FxEchartHtml
 {
@@ -52,6 +53,7 @@ namespace FxEchartHtml
 		/// </summary>
 		public string FilePath { get; set; }
 
+		
 		/// <summary>
 		/// 在 WebView2 控件中展示指定的 ECharts 配置项。
 		/// </summary>

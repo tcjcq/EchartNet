@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -174,6 +176,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Propertys\ArrayOrSingle.cs" />
     <Compile Include="Propertys\ArrayOrSingleConverter.cs" />
+    <Compile Include="Propertys\AxisDataConverter.cs" />
     <Compile Include="Propertys\BorderRadiusProperty.cs" />
     <Compile Include="Propertys\BorderTypeProperty.cs" />
     <Compile Include="Propertys\BoundaryGap.cs" />
@@ -185,13 +188,14 @@
     <Compile Include="Propertys\EdgeProperty.cs" />
     <Compile Include="Propertys\FontWeightProperty.cs" />
     <Compile Include="Propertys\Formatter.cs" />
+    <Compile Include="Propertys\GenericSeriesDataConverter.cs" />
+    <Compile Include="Propertys\LegendDataConverter.cs" />
     <Compile Include="Propertys\LineStyleTypeProperty.cs" />
     <Compile Include="Propertys\NumberOrBool.cs" />
     <Compile Include="Propertys\NumberOrBoolConverter.cs" />
     <Compile Include="Propertys\PaddingProperty.cs" />
     <Compile Include="Propertys\PercentVector.cs" />
     <Compile Include="Propertys\PercentVectorConverter.cs" />
-    <Compile Include="Propertys\SeriesLineDataConverter.cs" />
     <Compile Include="Propertys\SingleOrArrayConverter.cs" />
     <Compile Include="Propertys\StringOrBool.cs" />
     <Compile Include="Propertys\StringOrBoolConverter.cs" />
@@ -201,6 +205,7 @@
     <Compile Include="Propertys\StringOrNumbersConverter.cs" />
     <Compile Include="Propertys\SymbolProperty.cs" />
     <Compile Include="Propertys\SymbolPropertyConverter.cs" />
+    <Compile Include="Propertys\VisualMapConverter.cs" />
     <Compile Include="Radar\Radar.cs" />
     <Compile Include="Radar\Radar_AxisLabel.cs" />
     <Compile Include="Radar\Radar_AxisName.cs" />
@@ -338,6 +343,7 @@
     <Compile Include="series\SeriesLine\Blur2.cs" />
     <Compile Include="series\SeriesLine\Blur3.cs" />
     <Compile Include="series\SeriesLine\Blur4.cs" />
+    <Compile Include="series\SeriesLine\DataItem.cs" />
     <Compile Include="series\SeriesLine\Emphasis0.cs" />
     <Compile Include="series\SeriesLine\Emphasis1.cs" />
     <Compile Include="series\SeriesLine\Emphasis2.cs" />
@@ -352,11 +358,11 @@
     <Compile Include="series\SeriesLine\SeriesLine.cs" />
     <Compile Include="series\SeriesLine\SeriesLine_AreaStyle.cs" />
     <Compile Include="series\SeriesLine\SeriesLine_Blur.cs" />
-    <Compile Include="series\SeriesLine\SeriesLine_Data.cs" />
+    <Compile Include="series\SeriesLine\DataItemConverter.cs" />
     <Compile Include="series\SeriesLine\SeriesLine_Emphasis.cs" />
     <Compile Include="series\SeriesLine\SeriesLine_EndLabel.cs" />
     <Compile Include="series\SeriesLine\SeriesLine_MarkArea_Data_D0.cs" />
-    <Compile Include="series\SeriesLine\SeriesLine_MarkLine_Data_D0.cs" />
+    <Compile Include="series\SeriesLine\SeriesLine_MarkLine_DataPoint.cs" />
     <Compile Include="series\SeriesLine\SeriesLine_MarkPoint.cs" />
     <Compile Include="series\SeriesLine\SeriesLine_MarkPoint_Data.cs" />
     <Compile Include="series\SeriesLine\SeriesLine_Select.cs" />
