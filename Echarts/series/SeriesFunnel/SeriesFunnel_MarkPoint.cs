@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
+
 namespace Echarts;
 
 /// <summary>
@@ -180,5 +181,6 @@ public class SeriesFunnel_MarkPoint
 	///     也可以看该示例
 	/// </summary>
 	[JsonProperty("animationDelayUpdate")]
-	public StringOrNumber AnimationDelayUpdate { get; set; }
+	public StringOrNumber AnimationDelayUpdate { get; set;
+
 }

@@ -85,7 +85,7 @@ public class AxisDataConverter<T> : JsonConverter<T> where T : new()
 	/// <summary>
 	///     获取属性值（支持 JsonProperty）
 	/// </summary>
-	private object? GetPropertyByJsonName(T value, string jsonName)
+	private object GetPropertyByJsonName(T value, string jsonName)
 	{
 		foreach (var prop in typeof(T).GetProperties())
 		{

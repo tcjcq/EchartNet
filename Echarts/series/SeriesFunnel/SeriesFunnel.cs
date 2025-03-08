@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
+;
+
 namespace Echarts;
 
 /// <summary>
@@ -562,7 +564,8 @@ public class SeriesFunnel
 	public SeriesLine_UniversalTransition UniversalTransition { get; set; }
 
 	/// <summary>
-	///     本系列特定的 tooltip 设定。
+	///   
+ 本系列特定的 tooltip 设定。
 	/// </summary>
 	[JsonProperty("tooltip")]
 	public Tooltip1 Tooltip { get; set; }

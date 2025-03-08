@@ -1,6 +1,4 @@
-﻿using Microsoft.Web.WebView2.WinForms;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -9,53 +7,53 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
-using Newtonsoft.Json;
+using Microsoft.Web.WebView2.WinForms;
 
 namespace FxEchartHtml
 {
 	/// <summary>
-	/// 表示一个演示示例（Demo）的元信息，如标题、分类、难度、视频时间段、文件路径等。
+	///     表示一个演示示例（Demo）的元信息，如标题、分类、难度、视频时间段、文件路径等。
 	/// </summary>
 	public class DemoInfo
 	{
 		/// <summary>
-		/// 演示示例的标题（英文）。
+		///     演示示例的标题（英文）。
 		/// </summary>
 		public string Title { get; set; }
 
 		/// <summary>
-		/// 演示示例所属分类列表。
+		///     演示示例所属分类列表。
 		/// </summary>
 		public List<string> Categories { get; set; } = new List<string>();
 
 		/// <summary>
-		/// 演示示例的中文标题（可选）。
+		///     演示示例的中文标题（可选）。
 		/// </summary>
 		public string TitleCn { get; set; }
 
 		/// <summary>
-		/// 演示示例的难度等级（可能为1-5或其他范围）。
+		///     演示示例的难度等级（可能为1-5或其他范围）。
 		/// </summary>
 		public int Difficulty { get; set; }
 
 		/// <summary>
-		/// 演示示例相关视频的起始时间（秒）。
+		///     演示示例相关视频的起始时间（秒）。
 		/// </summary>
 		public int VideoStart { get; set; }
 
 		/// <summary>
-		/// 演示示例相关视频的结束时间（秒）。
+		///     演示示例相关视频的结束时间（秒）。
 		/// </summary>
 		public int VideoEnd { get; set; }
 
 		/// <summary>
-		/// 该示例对应的文件路径。
+		///     该示例对应的文件路径。
 		/// </summary>
 		public string FilePath { get; set; }
 
-		
+
 		/// <summary>
-		/// 在 WebView2 控件中展示指定的 ECharts 配置项。
+		///     在 WebView2 控件中展示指定的 ECharts 配置项。
 		/// </summary>
 		/// <param name="view">WebView2 控件实例。</param>
 		/// <param name="optionStrings">ECharts 配置项字符串。</param>
@@ -79,12 +77,10 @@ namespace FxEchartHtml
 			// 替换占位符为实际的 ECharts 配置项
 			htmlContent = htmlContent.Replace("/*====*/", optionStrings);
 			if (darkmode)
-			{
 				// 替换主题为 dark
 				htmlContent = htmlContent.Replace(
 					" var myChart = echarts.init(dom, null, {",
 					" var myChart = echarts.init(dom, 'dark', {");
-			}
 
 			// 将生成的 HTML 写入 demo1.html，用于 WebView2 显示
 			var demoPath = Path.Combine(basePath, "html", "demo1.html");
@@ -96,8 +92,8 @@ namespace FxEchartHtml
 		}
 
 		/// <summary>
-		/// 根据当前类信息（ClassInfo）显示其示例的 ECharts 配置项。
-		/// 如果不存在示例则隐藏 WebView2。
+		///     根据当前类信息（ClassInfo）显示其示例的 ECharts 配置项。
+		///     如果不存在示例则隐藏 WebView2。
 		/// </summary>
 		/// <param name="view">WebView2 控件实例。</param>
 		/// <param name="currClassInfo">包含当前类信息和示例代码的对象。</param>
@@ -132,7 +128,7 @@ namespace FxEchartHtml
 		}
 
 		/// <summary>
-		/// 异步初始化 WebView2 控件并导航到指定 URL。
+		///     异步初始化 WebView2 控件并导航到指定 URL。
 		/// </summary>
 		/// <param name="url">要导航到的 URL。</param>
 		/// <param name="view">WebView2 控件实例。</param>
@@ -142,10 +138,7 @@ namespace FxEchartHtml
 			try
 			{
 				await view.EnsureCoreWebView2Async().ConfigureAwait(false);
-				form.Invoke((MethodInvoker)delegate
-				{
-					view.CoreWebView2.Navigate(url);
-				});
+				form.Invoke((MethodInvoker)delegate { view.CoreWebView2.Navigate(url); });
 			}
 			catch (Exception e)
 			{
@@ -154,7 +147,7 @@ namespace FxEchartHtml
 		}
 
 		/// <summary>
-		/// 从指定文件中提取 DemoInfo 信息，包括注释中标注的 title、category、titlecn、difficulty、videostart、videoend 等。
+		///     从指定文件中提取 DemoInfo 信息，包括注释中标注的 title、category、titlecn、difficulty、videostart、videoend 等。
 		/// </summary>
 		/// <param name="filePath">文件路径。</param>
 		/// <returns>提取到的 DemoInfo 对象。</returns>
@@ -167,10 +160,10 @@ namespace FxEchartHtml
 				return demoInfo;
 			}
 
-			string content = File.ReadAllText(filePath);
+			var content = File.ReadAllText(filePath);
 
 			// 正则匹配注释块： /* ... */
-			string commentPattern = @"/\*([^*]|\*(?!/))*\*/";
+			var commentPattern = @"/\*([^*]|\*(?!/))*\*/";
 			var commentMatch = Regex.Match(content, commentPattern, RegexOptions.Singleline);
 			if (!commentMatch.Success)
 			{
@@ -181,7 +174,7 @@ namespace FxEchartHtml
 			// 提取注释块内容（去掉 /* 和 */）
 			var commentBlock = commentMatch.Value;
 			var lines = commentBlock.Substring(2, commentBlock.Length - 4)
-									.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+				.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
 
 			foreach (var rawLine in lines)
 			{
@@ -193,7 +186,7 @@ namespace FxEchartHtml
 				if (keyValueParts.Length == 2)
 				{
 					var key = keyValueParts[0].Trim().ToLower();
-					var value = keyValueParts[1].Trim().Trim(new char[] { '"', '\'' });
+					var value = keyValueParts[1].Trim().Trim('"', '\'');
 
 					// 根据键赋值
 					switch (key)
@@ -202,21 +195,22 @@ namespace FxEchartHtml
 							demoInfo.Title = value;
 							break;
 						case "category":
-							demoInfo.Categories.AddRange(value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim()));
+							demoInfo.Categories.AddRange(value
+								.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim()));
 							break;
 						case "titlecn":
 							demoInfo.TitleCn = value;
 							break;
 						case "difficulty":
-							if (int.TryParse(value, out int difficulty))
+							if (int.TryParse(value, out var difficulty))
 								demoInfo.Difficulty = difficulty;
 							break;
 						case "videostart":
-							if (int.TryParse(value, out int videoStart))
+							if (int.TryParse(value, out var videoStart))
 								demoInfo.VideoStart = videoStart;
 							break;
 						case "videoend":
-							if (int.TryParse(value, out int videoEnd))
+							if (int.TryParse(value, out var videoEnd))
 								demoInfo.VideoEnd = videoEnd;
 							break;
 					}
@@ -228,8 +222,8 @@ namespace FxEchartHtml
 		}
 
 		/// <summary>
-		/// 从指定文件夹中提取所有文件的 DemoInfo 信息。
-		/// 仅当文件中包含有效信息（标题、分类、标题中文或难度）时才加入列表中。
+		///     从指定文件夹中提取所有文件的 DemoInfo 信息。
+		///     仅当文件中包含有效信息（标题、分类、标题中文或难度）时才加入列表中。
 		/// </summary>
 		/// <param name="folderPath">文件夹路径。</param>
 		/// <returns>包含 DemoInfo 对象的列表。</returns>
@@ -249,14 +243,11 @@ namespace FxEchartHtml
 			{
 				var demoInfo = ExtractDemoInfoFromFile(filePath);
 				// 若包含有效信息才添加
-				bool hasValidInfo = !(string.IsNullOrWhiteSpace(demoInfo.Title)
-									&& (demoInfo.Categories == null || demoInfo.Categories.Count <= 0)
-									&& string.IsNullOrWhiteSpace(demoInfo.TitleCn)
-									&& demoInfo.Difficulty <= 0);
-				if (hasValidInfo)
-				{
-					demoInfoList.Add(demoInfo);
-				}
+				var hasValidInfo = !(string.IsNullOrWhiteSpace(demoInfo.Title)
+				                     && (demoInfo.Categories == null || demoInfo.Categories.Count <= 0)
+				                     && string.IsNullOrWhiteSpace(demoInfo.TitleCn)
+				                     && demoInfo.Difficulty <= 0);
+				if (hasValidInfo) demoInfoList.Add(demoInfo);
 			}
 
 			return demoInfoList;

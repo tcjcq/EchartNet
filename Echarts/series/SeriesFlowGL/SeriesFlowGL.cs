@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
+
 namespace Echarts;
 
 /// <summary>
@@ -83,5 +84,6 @@ public class SeriesFlowGL
 	///     向量场迹线的样式。
 	/// </summary>
 	[JsonProperty("itemStyle")]
-	public ItemStyle12 ItemStyle { get; set; }
+	public ItemStyle12 ItemStyle { get; set;
+
 }

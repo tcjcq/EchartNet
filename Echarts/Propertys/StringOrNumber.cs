@@ -1,4 +1,5 @@
 using System;
+
 using Newtonsoft.Json;
 
 namespace Echarts;
@@ -30,7 +31,7 @@ public class StringOrNumber
 		set
 		{
 			if (value is string || value is double || value == null || value is int || value is long ||
-			    value is float)
+				value is float)
 				_value = value;
 			else
 				throw new ArgumentException("值必须是 string 或 数值类型。");
@@ -58,13 +59,13 @@ public class StringOrNumber
 	{
 		return value switch
 		{
-			null                 => new StringOrNumber(),
-			string stringValue   => stringValue,
-			double doubleValue   => doubleValue,
-			int intValue         => (double)intValue,
-			float floatValue     => (double)floatValue,
+			null => new StringOrNumber(),
+			string stringValue => stringValue,
+			double doubleValue => doubleValue,
+			int intValue => (double)intValue,
+			float floatValue => (double)floatValue,
 			decimal decimalValue => (double)decimalValue,
-			_                    => new StringOrNumber()
+			_ => new StringOrNumber()
 		};
 	}
 }
