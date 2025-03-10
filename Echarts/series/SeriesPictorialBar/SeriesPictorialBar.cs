@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-;
-
 namespace Echarts;
 
 /// <summary>
@@ -794,7 +792,7 @@ public class SeriesPictorialBar
 	///     y: 1
 	///     },
 	///     data: [ ... ]
-	///      }
+	///     }
 	///     };
 	/// </summary>
 	[JsonProperty("encode")]
@@ -973,8 +971,7 @@ public class SeriesPictorialBar
 	[JsonProperty("universalTransition")]
 	public SeriesLine_UniversalTransition UniversalTransition { get; set; }
 
-	/// <su
-mary>
+	/// <summary>
 	///     本系列特定的 tooltip 设定。
 	/// </summary>
 	[JsonProperty("tooltip")]

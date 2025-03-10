@@ -105,11 +105,7 @@ public class DynamicSeriesConverter : JsonConverter
 		JsonSerializer serializer)
 	{
 		var obj = JObject.Load(reader);
-		var typeToken = obj["type"];
-
-		if (typeToken == null)
-			throw new JsonSerializationException("Missing required 'type' property");
-
+		var typeToken = obj["type"] ?? throw new JsonSerializationException("Missing required 'type' property");
 		var typeName = typeToken.Value<string>();
 		if (!TypeMap.TryGetValue(typeName, out var targetType))
 			throw new JsonSerializationException($"Unknown series type: {typeName}");

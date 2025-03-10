@@ -84,7 +84,7 @@ public class LineStyleTypePropertyConverter : JsonConverter
 
 	public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 	{
-		if (!(value is LineStyleTypeProperty lineStyleTypeProperty))
+		if (value is not LineStyleTypeProperty lineStyleTypeProperty)
 		{
 			writer.WriteNull();
 			return;

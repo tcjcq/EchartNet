@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -45,12 +44,12 @@ public class DataItemConverter : JsonConverter
 	{
 		return token.Type switch
 		{
-			JTokenType.Array => ParseJArray((JArray)token),
-			JTokenType.String => token.Value<string>(),
-			JTokenType.Float => token.Value<double>(),
+			JTokenType.Array   => ParseJArray((JArray)token),
+			JTokenType.String  => token.Value<string>(),
+			JTokenType.Float   => token.Value<double>(),
 			JTokenType.Integer => token.Value<long>(),
-			JTokenType.Null => null,
-			_ => token.ToString()
+			JTokenType.Null    => null,
+			_                  => token.ToString()
 		};
 	}
 
@@ -69,10 +68,10 @@ public class DataItemConverter : JsonConverter
 
 		// 处理日期格式
 		if (DateTime.TryParseExact(value,
-				new[] { "yyyy-MM-dd", "yyyy-MM-ddTHH:mm:ss" },
-				CultureInfo.InvariantCulture,
-				DateTimeStyles.None,
-				out var date))
+			    ["yyyy-MM-dd", "yyyy-MM-ddTHH:mm:ss"],
+			    CultureInfo.InvariantCulture,
+			    DateTimeStyles.None,
+			    out var date))
 			return date;
 
 		return value;

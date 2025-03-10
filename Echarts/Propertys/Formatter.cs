@@ -1,23 +1,17 @@
-namespace Echarts
+namespace Echarts;
+
+public class Formatter(string value)
 {
-	public class Formatter
+	public string Value { get; } = value;
+
+	public override string ToString()
 	{
-		public Formatter(string value)
-		{
-			Value = value;
-		}
+		return Value;
+	}
 
-		public string Value { get; }
-
-		public override string ToString()
-		{
-			return Value;
-		}
-
-		// 隐式转换从 string
-		public static implicit operator Formatter(string value)
-		{
-			return new Formatter(value);
-		}
+	// 隐式转换从 string
+	public static implicit operator Formatter(string value)
+	{
+		return new Formatter(value);
 	}
 }

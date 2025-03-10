@@ -32,7 +32,7 @@ public class StringOrNumberConverter : JsonConverter
 
 	public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 	{
-		if (!(value is StringOrNumber stringOrNumber)) return;
+		if (value is not StringOrNumber stringOrNumber) return;
 		var val = stringOrNumber.Value;
 		if (val is string strVal && strVal.TrimStart().StartsWith("function"))
 			writer.WriteRawValue(strVal); // 直接写入原始 JavaScript 函数

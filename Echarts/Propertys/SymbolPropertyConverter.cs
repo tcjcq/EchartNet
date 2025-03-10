@@ -31,7 +31,7 @@ public class SymbolPropertyConverter : JsonConverter
 
 	public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 	{
-		if (!(value is SymbolProperty symbolProperty)) return;
+		if (value is not SymbolProperty symbolProperty) return;
 		if (symbolProperty.Value is string[])
 			serializer.Serialize(writer, symbolProperty.Value);
 		else

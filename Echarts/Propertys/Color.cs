@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-
 using Newtonsoft.Json;
 
 namespace Echarts;
@@ -96,7 +95,7 @@ public class ColorConverter : JsonConverter
 
 	public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 	{
-		if (!(value is Color color))
+		if (value is not Color color)
 		{
 			writer.WriteNull();
 			return;

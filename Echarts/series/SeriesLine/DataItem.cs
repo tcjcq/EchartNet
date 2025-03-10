@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Newtonsoft.Json;
 
 namespace Echarts;
@@ -57,17 +56,17 @@ public class DataItem
 	public bool NeedObjectWrap()
 	{
 		return !string.IsNullOrEmpty(Name) ||
-			   !string.IsNullOrEmpty(GroupId) ||
-			   !string.IsNullOrEmpty(ChildGroupId) ||
-			   Label != null ||
-			   ItemStyle != null;
+		       !string.IsNullOrEmpty(GroupId) ||
+		       !string.IsNullOrEmpty(ChildGroupId) ||
+		       Label != null ||
+		       ItemStyle != null;
 	}
 
 	public bool HasExtendedProperties()
 	{
 		return !string.IsNullOrEmpty(Name) ||
-			   Label != null ||
-			   ItemStyle != null;
+		       Label != null ||
+		       ItemStyle != null;
 	}
 
 	#region 隐式转换

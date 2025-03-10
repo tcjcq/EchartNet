@@ -19,20 +19,22 @@ namespace Echarts;
 ///     color: 'red'
 ///     }
 ///     }, '周二', '周三', '周四', '周五', '周六', '周日']
-/// </summary>>
-	[JsonConverter(typeof(AxisDataConverter<XAxis_Data>))]
-	public class XAxis_Data
-	
-		/// <summary>
-		///     单个类目名称。
-		/// </summary>y>
-		[JsonProperty("value"
-			public string Value { get; set; }
-/// <summary>
+/// </summary>
+/// >
+[JsonConverter(typeof(AxisDataConverter<XAxis_Data>))]
+public class XAxis_Data
+{
+	/// <summary>
+	///     单个类目名称。
+	/// </summary>
+	/// y>
+	[JsonProperty("value")]
+	public string Value { get; set; }
+
+	/// <summary>
 	///     类目标签的文字样式。
-	/// </summary>ary>
-		[JsonProperty("textStyl
-	]
-		public NameTextStyle0 TextStyle { get; se
- 	}
+	/// </summary>
+	/// ary>
+	[JsonProperty("textStyl")]
+	public NameTextStyle0 TextStyle { get; set; }
 }
