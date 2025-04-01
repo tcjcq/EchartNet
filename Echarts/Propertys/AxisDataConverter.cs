@@ -12,23 +12,23 @@ public class AxisDataConverter<T> : JsonConverter<T> where T : new()
 	{
 		var obj = new T();
 
-		// 处理字符串形式（如 "周一"）
-		if (reader.TokenType == JsonToken.String)
+		switch (reader.TokenType)
 		{
-			SetPropertyByJsonName(obj, "value", ((string)reader.Value)!, serializer);
-			return obj;
+			// 处理字符串形式（如 "周一"）
+			case JsonToken.String:
+				SetPropertyByJsonName(obj, "value", ((string)reader.Value)!, serializer);
+				return obj;
+			// 处理对象形式（如 { value: "周一", textStyle: { ... } }）
+			case JsonToken.StartObject:
+			{
+				var jObject = JObject.Load(reader);
+				foreach (var jProperty in jObject.Properties())
+					SetPropertyByJsonName(obj, jProperty.Name, jProperty.Value, serializer);
+				return obj;
+			}
+			default:
+				throw new JsonException($"无法将 {reader.TokenType} 反序列化为 {typeof(T).Name}");
 		}
-
-		// 处理对象形式（如 { value: "周一", textStyle: { ... } }）
-		if (reader.TokenType == JsonToken.StartObject)
-		{
-			var jObject = JObject.Load(reader);
-			foreach (var jProperty in jObject.Properties())
-				SetPropertyByJsonName(obj, jProperty.Name, jProperty.Value, serializer);
-			return obj;
-		}
-
-		throw new JsonException($"无法将 {reader.TokenType} 反序列化为 {typeof(T).Name}");
 	}
 
 	public override void WriteJson(JsonWriter writer, T value, JsonSerializer serializer)
