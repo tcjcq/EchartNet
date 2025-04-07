@@ -1,14 +1,13 @@
 using Newtonsoft.Json;
 
-namespace Echarts
+namespace Echarts;
+
+/// <summary>
+/// </summary>
+public class Emphasis10
 {
 	/// <summary>
 	/// </summary>
-	public class Emphasis10
-	{
-		/// <summary>
-		/// </summary>
-		[JsonProperty("style")]
-		public object Style { get; set; }
-	}
+	[JsonProperty("style")]
+	public object Style { get; set; }
 }
