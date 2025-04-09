@@ -75,7 +75,7 @@ public class LineStyleTypePropertyConverter : JsonConverter
 		var token = JToken.Load(reader);
 		if (token.Type == JTokenType.String)
 			return new LineStyleTypeProperty(token.ToObject<string>());
-		if (token.Type == JTokenType.Float || token.Type == JTokenType.Integer)
+		if (token.Type is JTokenType.Float or JTokenType.Integer)
 			return new LineStyleTypeProperty(token.ToObject<double>());
 		if (token.Type == JTokenType.Array)
 			return new LineStyleTypeProperty(token.ToObject<double[]>());

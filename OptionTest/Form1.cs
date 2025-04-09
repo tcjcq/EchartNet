@@ -86,7 +86,7 @@ namespace OptionTest
         }";
 
 			// 反序列化 JSON 数据
-			_ = JsonConvert.DeserializeObject<SeriesPictorialBar_MarkLine>(json);
+			var a = JsonConvert.DeserializeObject<SeriesPictorialBar_MarkLine>(json);
 		}
 
 		public void DeserializeDataJson()

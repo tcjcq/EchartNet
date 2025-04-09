@@ -57,8 +57,7 @@ public class SeriesLines_MarkArea
 	///     ]
 	/// </summary>
 	[JsonProperty("data")]
-	[JsonConverter(typeof(MarkDataConverter))]
-	public List<object> Data { get; set; }
+	public Dictionary<int, MarkArea_Data> Data { get; set; }
 
 	/// <summary>
 	///     是否开启动画。

@@ -5,7 +5,7 @@ namespace Echarts;
 /// <summary>
 ///     起点的数据。
 /// </summary>
-public class SeriesPie_MarkLine_Data_D0
+public class SeriesPie_MarkLine_Data
 {
 	/// <summary>
 	///     标注名称。定义后可在 label formatter 中作为数据名 {b} 模板变量使用。

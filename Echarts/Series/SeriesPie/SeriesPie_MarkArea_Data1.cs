@@ -19,17 +19,17 @@ namespace Echarts;
 ///     ]
 ///     ]
 /// </summary>
-public class SeriesPie_MarkArea_Data
+public class SeriesPie_MarkArea_Data1
 {
 	/// <summary>
 	///     标域左上角的数据
 	/// </summary>
 	[JsonProperty("0")]
-	public SeriesPie_MarkArea_Data_D0 D0 { get; set; }
+	public MarkArea_Data D0 { get; set; }
 
 	/// <summary>
 	///     标域右下角的数据
 	/// </summary>
 	[JsonProperty("1")]
-	public SeriesPie_MarkArea_Data_D0 D1 { get; set; }
+	public MarkArea_Data D1 { get; set; }
 }

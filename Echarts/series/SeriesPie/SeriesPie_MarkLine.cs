@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Echarts;
@@ -87,7 +88,7 @@ public class SeriesPie_MarkLine
 	///     ]
 	/// </summary>
 	[JsonProperty("data")]
-	public SeriesPie_MarkLine_Data Data { get; set; }
+	public Dictionary<int, SeriesPie_MarkLine_Data> Data { get; set; }
 
 	/// <summary>
 	///     是否开启动画。

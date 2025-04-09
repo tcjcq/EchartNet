@@ -274,10 +274,6 @@
     <Compile Include="Series\SeriesFunnel\SeriesFunnel_Data_ItemStyle.cs" />
     <Compile Include="Series\SeriesFunnel\SeriesFunnel_Data_Label.cs" />
     <Compile Include="Series\SeriesFunnel\SeriesFunnel_Emphasis.cs" />
-    <Compile Include="Series\SeriesFunnel\SeriesFunnel_MarkArea.cs" />
-    <Compile Include="Series\SeriesFunnel\SeriesFunnel_MarkArea_Data.cs" />
-    <Compile Include="Series\SeriesFunnel\SeriesFunnel_MarkLine.cs" />
-    <Compile Include="Series\SeriesFunnel\SeriesFunnel_MarkLine_Data.cs" />
     <Compile Include="Series\SeriesFunnel\SeriesFunnel_MarkPoint.cs" />
     <Compile Include="Series\SeriesGauge\SeriesGauge.cs" />
     <Compile Include="Series\SeriesGauge\SeriesGauge_Anchor.cs" />
@@ -288,9 +284,7 @@
     <Compile Include="Series\SeriesGauge\SeriesGauge_Data.cs" />
     <Compile Include="Series\SeriesGauge\SeriesGauge_Detail.cs" />
     <Compile Include="Series\SeriesGauge\SeriesGauge_MarkArea.cs" />
-    <Compile Include="Series\SeriesGauge\SeriesGauge_MarkArea_Data.cs" />
     <Compile Include="Series\SeriesGauge\SeriesGauge_MarkLine.cs" />
-    <Compile Include="Series\SeriesGauge\SeriesGauge_MarkLine_Data.cs" />
     <Compile Include="Series\SeriesGauge\SeriesGauge_MarkPoint.cs" />
     <Compile Include="Series\SeriesGauge\SeriesGauge_Pointer.cs" />
     <Compile Include="Series\SeriesGauge\SeriesGauge_Progress.cs" />
@@ -316,9 +310,6 @@
     <Compile Include="Series\SeriesHeatmap\SeriesHeatmap_Data.cs" />
     <Compile Include="Series\SeriesHeatmap\SeriesHeatmap_Emphasis.cs" />
     <Compile Include="Series\SeriesHeatmap\SeriesHeatmap_MarkArea.cs" />
-    <Compile Include="Series\SeriesHeatmap\SeriesHeatmap_MarkArea_Data.cs" />
-    <Compile Include="Series\SeriesHeatmap\SeriesHeatmap_MarkLine.cs" />
-    <Compile Include="Series\SeriesHeatmap\SeriesHeatmap_MarkLine_Data.cs" />
     <Compile Include="Series\SeriesHeatmap\SeriesHeatmap_MarkPoint.cs" />
     <Compile Include="Series\SeriesLine3D\SeriesLine3D.cs" />
     <Compile Include="Series\SeriesLine3D\SeriesLine3D_Data.cs" />
@@ -335,9 +326,7 @@
     <Compile Include="Series\SeriesLines\SeriesLines_Effect.cs" />
     <Compile Include="Series\SeriesLines\SeriesLines_Emphasis.cs" />
     <Compile Include="Series\SeriesLines\SeriesLines_MarkArea.cs" />
-    <Compile Include="Series\SeriesLines\SeriesLines_MarkArea_Data.cs" />
     <Compile Include="Series\SeriesLines\SeriesLines_MarkLine.cs" />
-    <Compile Include="Series\SeriesLines\SeriesLines_MarkLine_Data.cs" />
     <Compile Include="Series\SeriesLines\SeriesLines_MarkPoint.cs" />
     <Compile Include="Series\SeriesLine\Blur1.cs" />
     <Compile Include="Series\SeriesLine\Blur2.cs" />
@@ -414,10 +403,8 @@
     <Compile Include="Series\SeriesPie\SeriesPie_Label.cs" />
     <Compile Include="Series\SeriesPie\SeriesPie_LabelLine.cs" />
     <Compile Include="Series\SeriesPie\SeriesPie_MarkArea.cs" />
-    <Compile Include="Series\SeriesPie\SeriesPie_MarkArea_Data.cs" />
-    <Compile Include="Series\SeriesPie\SeriesPie_MarkArea_Data_D0.cs" />
+    <Compile Include="Series\SeriesPie\MarkArea_Data.cs" />
     <Compile Include="Series\SeriesPie\SeriesPie_MarkLine.cs" />
-    <Compile Include="Series\SeriesPie\SeriesPie_MarkLine_Data.cs" />
     <Compile Include="Series\SeriesPie\SeriesPie_MarkLine_Data_D0.cs" />
     <Compile Include="Series\SeriesPie\SeriesPie_MarkPoint.cs" />
     <Compile Include="Series\SeriesPie\SeriesPie_MarkPoint_Data.cs" />

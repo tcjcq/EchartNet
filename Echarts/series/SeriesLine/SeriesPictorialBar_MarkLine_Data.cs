@@ -67,7 +67,7 @@ public class MarkDataConverter : JsonConverter
 	public override bool CanConvert(Type objectType)
 	{
 		// 确保只处理对象类型
-		return objectType == typeof(object);
+		return objectType == typeof(MarkDataItem);
 	}
 
 	public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -85,7 +85,7 @@ public class MarkDataConverter : JsonConverter
 		{
 			// 双点配置：反序列化为 MarkLineDataPoint 数组
 			var dataPoints = token.ToObject<MarkDataItem[]>();
-			return dataPoints.Cast<object>().ToList();
+			return dataPoints.ToList();
 		}
 
 		throw new JsonSerializationException("无法识别的标线数据类型");

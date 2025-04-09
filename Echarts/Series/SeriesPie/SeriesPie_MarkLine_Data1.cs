@@ -20,17 +20,17 @@ namespace Echarts;
 ///     ]
 ///     ]
 /// </summary>
-public class SeriesPie_MarkLine_Data
+public class SeriesPie_MarkLine_Data1
 {
 	/// <summary>
 	///     起点的数据。
 	/// </summary>
 	[JsonProperty("0")]
-	public SeriesPie_MarkLine_Data_D0 D0 { get; set; }
+	public SeriesPie_MarkLine_Data D0 { get; set; }
 
 	/// <summary>
 	///     终点的数据。
 	/// </summary>
 	[JsonProperty("1")]
-	public SeriesPie_MarkLine_Data_D0 D1 { get; set; }
+	public SeriesPie_MarkLine_Data D1 { get; set; }
 }

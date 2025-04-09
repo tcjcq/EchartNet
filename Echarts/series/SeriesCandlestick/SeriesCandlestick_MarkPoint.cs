@@ -125,7 +125,7 @@ public class SeriesCandlestick_MarkPoint
 	/// </summary>
 	[JsonProperty("data")]
 	[JsonConverter(typeof(MarkDataConverter))]
-	public List<object> Data { get; set; }
+	public List<MarkDataItem> Data { get; set; }
 
 	/// <summary>
 	///     是否开启动画。

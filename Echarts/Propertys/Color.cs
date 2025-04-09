@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 namespace Echarts;
@@ -21,17 +22,22 @@ public class Color
 		Value = colorValue;
 	}
 
+	public Color(LinearGradient gradient)
+	{
+		Value = gradient;
+	}
+
 	public Color(IEnumerable<string> colorValue)
 	{
 		var s = colorValue.Aggregate("", (current, r) => $"{current},{r}");
 		Value = s.Trim(',');
 	}
 
-	[JsonIgnore] public string Value { get; set; }
+	[JsonIgnore] public object Value { get; set; }
 
 	public override string ToString()
 	{
-		return Value;
+		return JsonConvert.SerializeObject(Value);
 	}
 
 	// 从 string 到 Color 的隐式转换
@@ -45,17 +51,14 @@ public class Color
 		return new Color(value);
 	}
 
-	// 从 Color 到 string 的隐式转换
-	public static implicit operator string(Color color)
-	{
-		return color.Value;
-	}
 
 	public static implicit operator string[](Color color)
 	{
-		return string.IsNullOrEmpty(color.Value)
-			? []
-			: color.Value.Split([','], StringSplitOptions.RemoveEmptyEntries);
+		if (color.Value is string s)
+			return string.IsNullOrEmpty(s)
+				? []
+				: s.Split([','], StringSplitOptions.RemoveEmptyEntries);
+		return [];
 	}
 
 	// 从 System.Drawing.Color 到 Color 的隐式转换
@@ -68,8 +71,19 @@ public class Color
 	// 从 Color 到 System.Drawing.Color 的隐式转换
 	public static implicit operator System.Drawing.Color(Color color)
 	{
-		if (color == null || string.IsNullOrEmpty(color.Value)) return System.Drawing.Color.Empty;
-		return ColorTranslator.FromHtml(color.Value);
+		if (color.Value is string s)
+		{
+			if (string.IsNullOrEmpty(s)) return System.Drawing.Color.Empty;
+			return ColorTranslator.FromHtml(s);
+		}
+
+		if (color.Value is LinearGradient gradient) return new Color(gradient);
+		return System.Drawing.Color.Empty;
+	}
+
+	public static implicit operator Color(LinearGradient gradient)
+	{
+		return new Color(gradient);
 	}
 }
 
@@ -101,10 +115,69 @@ public class ColorConverter : JsonConverter
 			return;
 		}
 
-		// 如果是以 'function' 开头的函数字符串，直接写入函数而不加引号
-		if (!string.IsNullOrEmpty(color.Value) && color.Value.TrimStart().StartsWith("function"))
-			writer.WriteRawValue(color.Value); // 直接写入函数字符串
-		else
-			writer.WriteValue(color.Value); // 作为普通字符串写入
+		if (color.Value is string s)
+		{
+			// 如果是以 'function' 开头的函数字符串，直接写入函数而不加引号
+			if (!string.IsNullOrEmpty(s) && s.TrimStart().StartsWith("function"))
+				writer.WriteRawValue(s); // 直接写入函数字符串
+			else
+				writer.WriteValue(s); // 作为普通字符串写入
+		}
+
+		if (color.Value is LinearGradient gradient)
+			//writer.WriteValue(JsonConvert.SerializeObject(gradient));
+			writer.WriteValue(gradient);
 	}
+}
+
+public static class EchartsColorParser
+{
+	public static Color Parse(string input)
+	{
+		// 匹配渐变色模式 
+		var match = Regex.Match(input,
+			@"new\s+echarts\.graphic\.LinearGradient\(([^)]+)\)",
+			RegexOptions.Singleline);
+
+		if (match.Success)
+		{
+			var parameters = match.Groups[1].Value.Split(',')
+				.Select(x => x.Trim()).ToArray();
+
+			// 提取坐标参数 
+			var coords = parameters.Take(4)
+				.Select(double.Parse).ToArray();
+
+			// 提取颜色停止点 
+			var colorStops = JsonConvert.DeserializeObject<List<ColorStop>>(
+				string.Join("", parameters.Skip(4)));
+
+			return new Color(new LinearGradient
+			{
+				X = coords[0],
+				Y = coords[1],
+				X2 = coords[2],
+				Y2 = coords[3],
+				ColorStops = colorStops
+			});
+		}
+
+		// 普通颜色值 
+		return new Color(input.Trim('\'', '"'));
+	}
+}
+
+public class LinearGradient
+{
+	public double X { get; set; }
+	public double Y { get; set; }
+	public double X2 { get; set; }
+	public double Y2 { get; set; }
+	public List<ColorStop> ColorStops { get; set; }
+}
+
+public class ColorStop
+{
+	public double Offset { get; set; }
+	public string Color { get; set; }
 }

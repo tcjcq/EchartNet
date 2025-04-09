@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Echarts;
@@ -56,7 +57,7 @@ public class SeriesFunnel_MarkArea
 	///     ]
 	/// </summary>
 	[JsonProperty("data")]
-	public SeriesPie_MarkArea_Data Data { get; set; }
+	public Dictionary<int, MarkArea_Data> Data { get; set; }
 
 	/// <summary>
 	///     是否开启动画。

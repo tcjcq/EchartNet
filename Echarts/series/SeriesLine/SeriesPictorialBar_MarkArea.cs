@@ -94,9 +94,7 @@ public class SeriesPictorialBar_MarkArea
 	///     ]
 	/// </summary>
 	[JsonProperty("data")]
-	[JsonConverter(typeof(SingleOrArrayConverter<DataItem>))]
-
-	public List<DataItem> Data { get; set; }
+	public Dictionary<int, MarkArea_Data> Data { get; set; }
 
 	/// <summary>
 	///     是否开启动画。

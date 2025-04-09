@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 namespace Echarts;
 
 /// <summary>
-///     标域左上角的数据
+///     标域左上角或者右下角的数据
 /// </summary>
-public class SeriesPie_MarkArea_Data_D0
+public class MarkArea_Data
 {
 	/// <summary>
 	///     标注名称，将会作为文字显示。定义后可在 label formatter 中作为数据名 {b} 模板变量使用。
