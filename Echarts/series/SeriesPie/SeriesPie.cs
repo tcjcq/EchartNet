@@ -338,7 +338,7 @@ public class SeriesPie
 	///         可以将内半径设大显示成圆环图（Donut chart）。
 	/// </summary>
 	[JsonProperty("radius")]
-	public StringOrNumber[] Radius { get; set; }
+	public ArrayOrSingle Radius { get; set; }
 
 	/// <summary>
 	///     当使用 dataset 时，seriesLayoutBy 指定了 dataset 中用行还是列对应到系列上，也就是说，系列“排布”到 dataset 的行还是列上。可取值：

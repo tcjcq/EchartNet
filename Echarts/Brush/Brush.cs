@@ -164,7 +164,7 @@ public class Brush
 	///     'number': 某个 series index
 	/// </summary>
 	[JsonProperty("seriesIndex")]
-	public StringOrNumber[] SeriesIndex { get; set; }
+	public ArrayOrSingle SeriesIndex { get; set; }
 
 	/// <summary>
 	///     指定哪些 geo 可以被刷选。
@@ -211,7 +211,7 @@ public class Brush
 	///     };
 	/// </summary>
 	[JsonProperty("geoIndex")]
-	public StringOrNumber[] GeoIndex { get; set; }
+	public ArrayOrSingle GeoIndex { get; set; }
 
 	/// <summary>
 	///     指定哪些 xAxisIndex 可以被刷选。
@@ -258,7 +258,7 @@ public class Brush
 	///     };
 	/// </summary>
 	[JsonProperty("xAxisIndex")]
-	public StringOrNumber[] XAxisIndex { get; set; }
+	public ArrayOrSingle XAxisIndex { get; set; }
 
 	/// <summary>
 	///     指定哪些 yAxisIndex 可以被刷选。
@@ -305,7 +305,7 @@ public class Brush
 	///     };
 	/// </summary>
 	[JsonProperty("yAxisIndex")]
-	public StringOrNumber[] YAxisIndex { get; set; }
+	public ArrayOrSingle YAxisIndex { get; set; }
 
 	/// <summary>
 	///     默认的刷子类型。

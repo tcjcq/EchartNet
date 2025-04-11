@@ -212,7 +212,7 @@ namespace Echarts
 		///     }
 		/// </summary>
 		[JsonProperty("textBorderType")]
-		public StringOrNumber[] TextBorderType { get; set; }
+		public ArrayOrSingle TextBorderType { get; set; }
 
 		/// <summary>
 		///     从 v5.0.0 开始支持

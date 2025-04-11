@@ -41,7 +41,7 @@ namespace Echarts
 		///     }
 		/// </summary>
 		[JsonProperty("borderType")]
-		public StringOrNumber[] BorderType { get; set; }
+		public ArrayOrSingle BorderType { get; set; }
 
 		/// <summary>
 		///     从 v5.0.0 开始支持

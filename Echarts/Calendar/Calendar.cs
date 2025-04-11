@@ -103,7 +103,7 @@ namespace Echarts
 		///     range: ['2017-01', '2017-02']
 		/// </summary>
 		[JsonProperty("range")]
-		public StringOrNumber[] Range { get; set; }
+		public ArrayOrSingle Range { get; set; }
 
 		/// <summary>
 		///     日历每格框的大小，可设置单值 或数组  第一个元素是宽 第二个元素是高。

@@ -49,7 +49,7 @@ namespace Echarts
 		///     Array.<number| string>：数组的第一项是内半径，第二项是外半径。每一项遵从上述 number string 的描述。
 		/// </summary>
 		[JsonProperty("radius")]
-		public StringOrNumber[] Radius { get; set; }
+		public ArrayOrSingle Radius { get; set; }
 
 		/// <summary>
 		///     本坐标系特定的 tooltip 设定。

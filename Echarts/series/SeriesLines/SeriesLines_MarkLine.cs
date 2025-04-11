@@ -36,7 +36,7 @@ public class SeriesLines_MarkLine
 	///     从 v5.1.0 开始支持
 	/// </summary>
 	[JsonProperty("symbolOffset")]
-	public StringOrNumber[] SymbolOffset { get; set; }
+	public ArrayOrSingle SymbolOffset { get; set; }
 
 	/// <summary>
 	///     标线数值的精度，在显示平均值线的时候有用。

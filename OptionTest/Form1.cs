@@ -17,6 +17,7 @@ namespace OptionTest
 		public EChartOption JsonTest(string optionStrings)
 		{
 			optionStrings = ExtractOptionJson(optionStrings);
+			var c = EchartsColorParser.Parse(optionStrings);
 			var option = JsonConvert.DeserializeObject<EChartOption>(optionStrings);
 			return option;
 		}
@@ -62,7 +63,8 @@ namespace OptionTest
 					NullValueHandling = NullValueHandling.Ignore,
 					Formatting = Formatting.Indented
 				};
-				textBox2.Text = JsonConvert.SerializeObject(JsonTest(textBox1.Text), setting);
+				var js = GradientConverter.ConvertAll(textBox1.Text);
+				textBox2.Text = JsonConvert.SerializeObject(JsonTest(js), setting);
 			}
 			catch (Exception exception)
 			{

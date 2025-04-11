@@ -42,7 +42,7 @@ namespace Echarts
 		///     }
 		/// </summary>
 		[JsonProperty("type")]
-		public StringOrNumber[] Type { get; set; }
+		public ArrayOrSingle Type { get; set; }
 
 		/// <summary>
 		///     从 v5.0.0 开始支持

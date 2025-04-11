@@ -39,7 +39,7 @@ namespace Echarts
 		///     number 或 number 数组。详见 MDN。
 		/// </summary>
 		[JsonProperty("lineDash")]
-		public StringOrNumber[] LineDash { get; set; }
+		public ArrayOrSingle LineDash { get; set; }
 
 		/// <summary>
 		///     用于设置虚线的偏移量。详见 MDN。

@@ -120,7 +120,7 @@ public class SeriesGauge_Title
 	///     }
 	/// </summary>
 	[JsonProperty("borderType")]
-	public StringOrNumber[] BorderType { get; set; }
+	public ArrayOrSingle BorderType { get; set; }
 
 	/// <summary>
 	///     从 v5.0.0 开始支持
@@ -212,7 +212,7 @@ public class SeriesGauge_Title
 	///     }
 	/// </summary>
 	[JsonProperty("textBorderType")]
-	public StringOrNumber[] TextBorderType { get; set; }
+	public ArrayOrSingle TextBorderType { get; set; }
 
 	/// <summary>
 	///     从 v5.0.0 开始支持

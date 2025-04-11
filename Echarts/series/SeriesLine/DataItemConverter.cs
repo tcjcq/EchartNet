@@ -29,7 +29,7 @@ public class DataItemConverter : JsonConverter
 				break;
 
 			case JTokenType.Array:
-				item.Value = ((JArray)token).ToObject<StringOrNumber[]>();
+				item.Value = ((JArray)token).ToObject<ArrayOrSingle>();
 				break;
 
 			default:

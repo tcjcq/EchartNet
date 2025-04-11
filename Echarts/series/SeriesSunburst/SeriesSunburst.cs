@@ -63,7 +63,7 @@ public class SeriesSunburst
 	///     Array.<number| string>：数组的第一项是内半径，第二项是外半径。每一项遵从上述 number string 的描述。
 	/// </summary>
 	[JsonProperty("radius")]
-	public StringOrNumber[] Radius { get; set; }
+	public ArrayOrSingle Radius { get; set; }
 
 	/// <summary>
 	///     series-sunburst.data 的数据格式是树状的，例如：

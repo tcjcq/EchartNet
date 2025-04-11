@@ -45,7 +45,8 @@ public class ItemStyle6
 	///     }
 	/// </summary>
 	[JsonProperty("borderType")]
-	public StringOrNumber[] BorderType { get; set; }
+	[JsonConverter(typeof(ArrayOrSingleConverter))]
+	public ArrayOrSingle BorderType { get; set; }
 
 	/// <summary>
 	///     从 v5.0.0 开始支持
@@ -155,5 +156,5 @@ public class ItemStyle6
 	///     borderRadius: [5, 10, 15, 20]：表示内圆角半径分别为 5px 和 10px，外圆角半径分别为 15px 和 20px。
 	/// </summary>
 	[JsonProperty("borderRadius")]
-	public StringOrNumber[] BorderRadius { get; set; }
-}
+	public ArrayOrSingle BorderRadius { get; set; }
+}	
