@@ -17,7 +17,8 @@ namespace OptionTest
 		public EChartOption JsonTest(string optionStrings)
 		{
 			optionStrings = ExtractOptionJson(optionStrings);
-			var c = EchartsColorParser.Parse(optionStrings);
+			optionStrings = FixInvalidJson(optionStrings);
+
 			var option = JsonConvert.DeserializeObject<EChartOption>(optionStrings);
 			return option;
 		}
@@ -139,6 +140,26 @@ namespace OptionTest
 			{
 				Console.WriteLine($"解析失败：{ex.Message}");
 			}
+		}
+
+		// FixInvalidJson 方法：修复 function 形式的无效 JSON
+		private static string FixInvalidJson(string json)
+		{
+			// 如果 JSON 中不包含 "function"，则直接返回
+			if (!json.Contains("function")) return json; // 没有函数定义，直接返回原始 JSON
+
+			// 匹配 function(para) {...} 或 function(para1, para2, ...) {...} 形式的函数，且确保其不在引号内
+			var regex = new Regex(@"(?<![""'])function\s*\([^)]*\)\s*\{[\s\S]*?\}(?![""'])", RegexOptions.Singleline);
+
+			// 将匹配的函数部分包裹为字符串
+			var fixedJson = regex.Replace(json, match =>
+			{
+				// 获取函数内容并添加引号，且转义内部引号
+				var functionString = match.Value.Trim();
+				return $"\"{functionString.Replace("\"", "\\\"")}\""; // 转义内部引号
+			});
+
+			return fixedJson;
 		}
 	}
 }

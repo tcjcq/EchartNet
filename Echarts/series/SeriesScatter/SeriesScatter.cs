@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Echarts;
@@ -443,7 +444,7 @@ public class SeriesScatter
 	///     如果 series.data 没有指定，并且 dataset 存在，那么就会使用 dataset。datasetIndex 指定本系列使用哪个 dataset。
 	/// </summary>
 	[JsonProperty("datasetIndex")]
-	public double? DatasetIndex { get; set; }
+	public int? DatasetIndex { get; set; }
 
 	/// <summary>
 	///     该系列所有数据项的组 ID，优先级低于groupId。详见series.data.groupId。
@@ -549,7 +550,7 @@ public class SeriesScatter
 	///     例如，无数据在折线图中可表现为该点是断开的，在其它图中可表示为图形不存在。
 	/// </summary>
 	[JsonProperty("data")]
-	public SeriesScatter_Data[] Data { get; set; }
+	public List<DataItem> Data { get; set; }
 
 	/// <summary>
 	///     图表标注。

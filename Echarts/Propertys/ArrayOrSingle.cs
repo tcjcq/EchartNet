@@ -13,6 +13,7 @@ public class ArrayOrSingle
 	private readonly int? _singleIntValue;
 	private readonly string _singleStringValue;
 	private readonly List<string> _stringValues;
+	private readonly List<StringOrNumber> _vStringOrNumbers;
 
 	public ArrayOrSingle(bool value)
 	{
@@ -22,6 +23,11 @@ public class ArrayOrSingle
 	public ArrayOrSingle(List<int> intValues)
 	{
 		_intValues = intValues;
+	}
+
+	public ArrayOrSingle(List<StringOrNumber> values)
+	{
+		_vStringOrNumbers = values;
 	}
 
 	public ArrayOrSingle(List<double> doubleValues)
@@ -71,6 +77,11 @@ public class ArrayOrSingle
 		return new ArrayOrSingle(intValues);
 	}
 
+	public static implicit operator ArrayOrSingle(List<StringOrNumber> values)
+	{
+		return new ArrayOrSingle(values);
+	}
+
 	// 隐式操作符，允许从单个 string 转换到 ArrayIntOrString
 	public static implicit operator ArrayOrSingle(string singleStringValue)
 	{
@@ -91,10 +102,10 @@ public class ArrayOrSingle
 		if (_singleDoubleValue.HasValue) return new List<double> { _singleDoubleValue.Value };
 		if (_doubleValues != null) return _doubleValues;
 		if (_intValues != null) return _intValues;
+		if (_vStringOrNumbers != null) return _vStringOrNumbers;
 		return _singleStringValue != null
 			? [_singleStringValue]
 			: _stringValues;
 	}
 }
 
-// 自定义JsonConverter支持反序列化

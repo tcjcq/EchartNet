@@ -40,7 +40,7 @@ namespace Echarts
 		///     center: ['50%', '50%']
 		/// </summary>
 		[JsonProperty("center")]
-		public double[] Center { get; set; }
+		public ArrayOrSingle Center { get; set; }
 
 		/// <summary>
 		///     极坐标系的半径。可以为如下类型：

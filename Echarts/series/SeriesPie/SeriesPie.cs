@@ -326,7 +326,7 @@ public class SeriesPie
 	///     center: ['50%', '50%']
 	/// </summary>
 	[JsonProperty("center")]
-	public double[] Center { get; set; }
+	public ArrayOrSingle Center { get; set; }
 
 	/// <summary>
 	///     饼图的半径。可以为如下类型：
@@ -353,7 +353,7 @@ public class SeriesPie
 	///     如果 series.data 没有指定，并且 dataset 存在，那么就会使用 dataset。datasetIndex 指定本系列使用哪个 dataset。
 	/// </summary>
 	[JsonProperty("datasetIndex")]
-	public double? DatasetIndex { get; set; }
+	public int? DatasetIndex { get; set; }
 
 	/// <summary>
 	///     使用 dimensions 定义 series.data 或者 dataset.source 的每个维度的信息。

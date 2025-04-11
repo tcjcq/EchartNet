@@ -45,7 +45,6 @@ public class ItemStyle6
 	///     }
 	/// </summary>
 	[JsonProperty("borderType")]
-	[JsonConverter(typeof(ArrayOrSingleConverter))]
 	public ArrayOrSingle BorderType { get; set; }
 
 	/// <summary>

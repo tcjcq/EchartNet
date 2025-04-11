@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Echarts;
@@ -40,7 +41,7 @@ public class Dataset
 	///     关于 dataset 的详情，请参见教程。
 	/// </summary>
 	[JsonProperty("source")]
-	public object Source { get; set; }
+	public List<DataItem> Source { get; set; }
 
 	/// <summary>
 	///     使用 dimensions 定义 series.data 或者 dataset.source 的每个维度的信息。
@@ -106,7 +107,7 @@ public class Dataset
 	///     参见 数据变换教程
 	/// </summary>
 	[JsonProperty("transform")]
-	public Dataset_Transform[] Transform { get; set; }
+	public Dataset_Transform_Filter Transform { get; set; }
 
 	/// <summary>
 	///     指定 dataset.transform 以哪个 dataset 作为输入。如果 dataset.transform 被指定了，但是 fromDatasetIndex 和 fromDatasetId 都没有被指定，那么默认会使用

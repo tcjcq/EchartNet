@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -23,48 +22,53 @@ public class ArrayOrSingleConverter : JsonConverter
 			case JsonToken.StartArray:
 				// 反序列化整数数组
 				var token = JToken.Load(reader);
-				if (token[0] != null)
-					switch (token[0].Type)
-					{
-						case JTokenType.Integer:
-							return new ArrayOrSingle(token.ToObject<List<int>>());
-						case JTokenType.Float:
-							return new ArrayOrSingle(token.ToObject<List<double>>());
-						case JTokenType.String:
-							return new ArrayOrSingle(token.Select(t => t.ToObject<string>()).ToList());
-						case JTokenType.None:
-							break;
-						case JTokenType.Object:
-							break;
-						case JTokenType.Array:
-							break;
-						case JTokenType.Constructor:
-							break;
-						case JTokenType.Property:
-							break;
-						case JTokenType.Comment:
-							break;
-						case JTokenType.Boolean:
-							break;
-						case JTokenType.Null:
-							break;
-						case JTokenType.Undefined:
-							break;
-						case JTokenType.Date:
-							break;
-						case JTokenType.Raw:
-							break;
-						case JTokenType.Bytes:
-							break;
-						case JTokenType.Guid:
-							break;
-						case JTokenType.Uri:
-							break;
-						case JTokenType.TimeSpan:
-							break;
-					}
+				var ls = new List<StringOrNumber>();
+				foreach (var r in token)
+					if (r != null)
+						switch (r.Type)
+						{
+							case JTokenType.Integer:
+								ls.Add(r.ToObject<int>());
+								break;
+							case JTokenType.Float:
+								ls.Add(r.ToObject<double>());
+								break;
+							case JTokenType.String:
+								ls.Add(r.ToObject<string>());
+								break;
+							case JTokenType.None:
+								break;
+							case JTokenType.Object:
+								break;
+							case JTokenType.Array:
+								break;
+							case JTokenType.Constructor:
+								break;
+							case JTokenType.Property:
+								break;
+							case JTokenType.Comment:
+								break;
+							case JTokenType.Boolean:
+								break;
+							case JTokenType.Null:
+								break;
+							case JTokenType.Undefined:
+								break;
+							case JTokenType.Date:
+								break;
+							case JTokenType.Raw:
+								break;
+							case JTokenType.Bytes:
+								break;
+							case JTokenType.Guid:
+								break;
+							case JTokenType.Uri:
+								break;
+							case JTokenType.TimeSpan:
+								break;
+						}
 
-				break;
+				return new ArrayOrSingle(ls);
 			case JsonToken.Boolean:
 				return new ArrayOrSingle(Convert.ToBoolean(reader.Value));
 			case JsonToken.Integer:
@@ -95,6 +99,10 @@ public class ArrayOrSingleConverter : JsonConverter
 				// 如果是单个整数，直接写入整数值
 				writer.WriteValue(singleInt);
 				break;
+			case StringOrNumber stringOrNumber:
+				// 如果是单个整数，直接写入整数值
+				writer.WriteValue(stringOrNumber);
+				break;
 			case bool singleBool:
 				writer.WriteValue(singleBool);
 				break;
@@ -106,21 +114,27 @@ public class ArrayOrSingleConverter : JsonConverter
 				writer.WriteValue(singleString);
 				break;
 			// 如果是整数列表，序列化列表
-			case List<int> intList when intList.Count == 1:
+			case List<int> { Count: 1 } intList:
 				writer.WriteValue(intList[0]);
+				break;
+			case List<StringOrNumber> { Count: 1 } s1:
+				serializer.Serialize(writer, s1[0]);
+				break;
+			case List<StringOrNumber> s2:
+				serializer.Serialize(writer, s2);
 				break;
 			case List<int> intList:
 				serializer.Serialize(writer, intList);
 				break;
 			// 如果是整数列表，序列化列表
-			case List<double> doubleList when doubleList.Count == 1:
+			case List<double> { Count: 1 } doubleList:
 				writer.WriteValue(doubleList[0]);
 				break;
 			case List<double> doubleList:
 				serializer.Serialize(writer, doubleList);
 				break;
 			// 如果是字符串列表，序列化列表
-			case List<string> stringList when stringList.Count == 1:
+			case List<string> { Count: 1 } stringList:
 				writer.WriteValue(stringList[0]);
 				break;
 			case List<string> stringList:

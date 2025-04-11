@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Echarts;
@@ -60,7 +61,7 @@ public class SeriesGauge
 	///     center: ['50%', '50%']
 	/// </summary>
 	[JsonProperty("center")]
-	public double[] Center { get; set; }
+	public ArrayOrSingle Center { get; set; }
 
 	/// <summary>
 	///     仪表盘半径，可以是相对于容器高宽中较小的一项的一半的百分比，也可以是绝对的数值。
@@ -123,7 +124,8 @@ public class SeriesGauge
 	///     }]
 	/// </summary>
 	[JsonProperty("data")]
-	public SeriesGauge_Data[] Data { get; set; }
+	[JsonConverter(typeof(SingleOrArrayConverter<SeriesGauge_Data>))]
+	public List<SeriesGauge_Data> Data { get; set; }
 
 	/// <summary>
 	///     最小的数据值，映射到 minAngle。

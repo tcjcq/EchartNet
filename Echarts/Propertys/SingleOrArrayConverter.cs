@@ -132,24 +132,49 @@ public class SeriesListConverter : JsonConverter
 	public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
 		JsonSerializer serializer)
 	{
-		var array = JArray.Load(reader);
-		var list = new List<object>();
-
-		foreach (var item in array)
+		switch (reader.TokenType)
 		{
-			var series = _itemConverter.ReadJson(item.CreateReader(), typeof(object), null, serializer);
-			list.Add(series);
-		}
+			case JsonToken.StartArray:
+			{
+				var array = JArray.Load(reader);
+				var list = new List<object>();
+				foreach (var item in array)
+				{
+					var series = _itemConverter.ReadJson(item.CreateReader(), typeof(object), null, serializer);
+					list.Add(series);
+				}
 
-		return list;
+				return list;
+			}
+			case JsonToken.StartObject:
+			{
+				//var instance = serializer.Deserialize(reader);
+				var series = _itemConverter.ReadJson(reader, typeof(object), null, serializer);
+				var list = new List<object>
+				{
+					series
+				};
+				return list;
+			}
+			default:
+				return null;
+		}
 	}
 
 	public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 	{
 		var list = (List<object>)value;
+		if (list is { Count: 1 })
+		{
+			_itemConverter.WriteJson(writer, list[0], serializer);
+			return;
+		}
+
 		writer.WriteStartArray();
 
-		foreach (var item in list) _itemConverter.WriteJson(writer, item, serializer);
+		if (list != null)
+			foreach (var item in list)
+				_itemConverter.WriteJson(writer, item, serializer);
 
 		writer.WriteEndArray();
 	}

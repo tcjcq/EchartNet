@@ -106,7 +106,7 @@ namespace Echarts
 		///     center: project([115.97, 29.71])
 		/// </summary>
 		[JsonProperty("center")]
-		public double[] Center { get; set; }
+		public ArrayOrSingle Center { get; set; }
 
 		/// <summary>
 		///     这个参数用于 scale 地图的长宽比，如果设置了projection则无效。

@@ -93,7 +93,7 @@ public class SeriesTree
 	///     center: [115.97, '30%']
 	/// </summary>
 	[JsonProperty("center")]
-	public double[] Center { get; set; }
+	public ArrayOrSingle Center { get; set; }
 
 	/// <summary>
 	///     当前视角的缩放比例。

@@ -212,7 +212,8 @@ public class EChartOption
 	///     关于 dataset 的详情，请参见教程。
 	/// </summary>
 	[JsonProperty("dataset")]
-	public Dataset DataSet { get; set; }
+	[JsonConverter(typeof(SingleOrArrayConverter<Dataset>))]
+	public List<Dataset> DataSet { get; set; }
 
 	/// <summary>
 	///     用于 timeline 的 option 数组。数组的每一项是一个 echarts option (ECUnitOption)。

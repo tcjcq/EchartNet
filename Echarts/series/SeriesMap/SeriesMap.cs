@@ -109,7 +109,7 @@ public class SeriesMap
 	///     center: [115.97, '30%']
 	/// </summary>
 	[JsonProperty("center")]
-	public double[] Center { get; set; }
+	public ArrayOrSingle Center { get; set; }
 
 	/// <summary>
 	///     这个参数用于 scale 地图的长宽比，如果设置了projection则无效。
@@ -303,7 +303,7 @@ public class SeriesMap
 	///     如果 series.data 没有指定，并且 dataset 存在，那么就会使用 dataset。datasetIndex 指定本系列使用哪个 dataset。
 	/// </summary>
 	[JsonProperty("datasetIndex")]
-	public double? DatasetIndex { get; set; }
+	public int? DatasetIndex { get; set; }
 
 	/// <summary>
 	///     该系列所有数据项的组 ID，优先级低于groupId。详见series.data.groupId。

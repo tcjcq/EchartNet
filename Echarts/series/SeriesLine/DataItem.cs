@@ -12,6 +12,15 @@ namespace Echarts;
 [JsonConverter(typeof(DataItemConverter))]
 public class DataItem
 {
+	public DataItem()
+	{
+	}
+
+	public DataItem(StringOrNumber[] value)
+	{
+		Value = value;
+	}
+
 	/// <summary>
 	///     核心数据值（支持6种类型）
 	///     - 单值：number/string/DateTime

@@ -16,7 +16,7 @@ namespace Echarts
 		///     参见 数据变换教程
 		/// </summary>
 		[JsonProperty("config")]
-		public string Config { get; set; }
+		public object Config { get; set; }
 
 		/// <summary>
 		///     使用 transform 时，有时候我们会配不对，显示不出来结果，并且不知道哪里错了。所以，这里提供了一个配置项 transform.print 方便 debug 。这个配置项只在开发环境中生效。如下例：

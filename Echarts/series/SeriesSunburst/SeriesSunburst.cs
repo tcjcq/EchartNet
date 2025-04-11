@@ -54,7 +54,7 @@ public class SeriesSunburst
 	///     center: ['50%', '50%']
 	/// </summary>
 	[JsonProperty("center")]
-	public double[] Center { get; set; }
+	public ArrayOrSingle Center { get; set; }
 
 	/// <summary>
 	///     旭日图的半径。可以为如下类型：

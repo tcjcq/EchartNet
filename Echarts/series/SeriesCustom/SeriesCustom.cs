@@ -471,7 +471,7 @@ public class SeriesCustom
 	///     如果 series.data 没有指定，并且 dataset 存在，那么就会使用 dataset。datasetIndex 指定本系列使用哪个 dataset。
 	/// </summary>
 	[JsonProperty("datasetIndex")]
-	public double? DatasetIndex { get; set; }
+	public int? DatasetIndex { get; set; }
 
 	/// <summary>
 	///     该系列所有数据项的组 ID，优先级低于groupId。详见series.data.groupId。

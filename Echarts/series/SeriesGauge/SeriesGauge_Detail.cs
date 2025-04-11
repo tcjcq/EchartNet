@@ -160,13 +160,13 @@ public class SeriesGauge_Detail
 	///     详情宽度。
 	/// </summary>
 	[JsonProperty("width")]
-	public double? Width { get; set; }
+	public StringOrNumber Width { get; set; }
 
 	/// <summary>
 	///     详情高度。
 	/// </summary>
 	[JsonProperty("height")]
-	public double? Height { get; set; }
+	public StringOrNumber Height { get; set; }
 
 	/// <summary>
 	///     文字本身的描边颜色。
@@ -295,7 +295,7 @@ public class SeriesGauge_Detail
 	///     相对于仪表盘中心的偏移位置，数组第一项是水平方向的偏移，第二项是垂直方向的偏移。可以是绝对的数值，也可以是相对于仪表盘半径的百分比。
 	/// </summary>
 	[JsonProperty("offsetCenter")]
-	public double[] OffsetCenter { get; set; }
+	public ArrayOrSingle OffsetCenter { get; set; }
 
 	/// <summary>
 	///     格式化函数或者字符串

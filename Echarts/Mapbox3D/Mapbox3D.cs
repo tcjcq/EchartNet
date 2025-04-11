@@ -33,7 +33,7 @@ namespace Echarts
 		///     }
 		/// </summary>
 		[JsonProperty("center")]
-		public double[] Center { get; set; }
+		public ArrayOrSingle Center { get; set; }
 
 		/// <summary>
 		///     Mapbox 地图的缩放等级。见 https://www.mapbox.com/mapbox-gl-js/style-spec/#root-zoom

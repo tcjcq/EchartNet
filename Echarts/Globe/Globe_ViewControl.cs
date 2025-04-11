@@ -145,7 +145,7 @@ namespace Echarts
 		///     视角中心点，旋转也会围绕这个中心点旋转，默认为[0,0,0]。
 		/// </summary>
 		[JsonProperty("center")]
-		public double[] Center { get; set; }
+		public ArrayOrSingle Center { get; set; }
 
 		/// <summary>
 		///     上下旋转的最小 alpha 值。即视角能旋转到达最上面的角度。
